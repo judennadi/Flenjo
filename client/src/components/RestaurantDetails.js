@@ -25,7 +25,7 @@ const RestaurantDetails = ({ match }) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`/restaurants/${id}`);
+        const { data } = await axios.get(`/api/restaurants/${id}`);
         console.log(data);
         setReviews(data.reviews);
         setIsLoading(false);

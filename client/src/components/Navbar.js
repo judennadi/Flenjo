@@ -20,16 +20,11 @@ const Navbar = () => {
   const mqSm = window.matchMedia("(max-width: 600px)");
   const mqXl = window.matchMedia("(min-width: 601px)");
 
-  let prevScrollPos = window.pageYOffset;
-
   const myScroll = () => {
     const filCon = document.querySelector(".filter-con");
-    let currentScrollPos = window.pageYOffset;
-    console.log("prev:", prevScrollPos);
-    console.log("current:", currentScrollPos);
-    console.log(scroll);
+    let currentScrollPos = window.scrollY;
     if (mqSm.matches) {
-      if (prevScrollPos >= currentScrollPos) {
+      if (0 >= currentScrollPos) {
         setScroll(false);
       } else {
         setScroll(true);

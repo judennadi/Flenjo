@@ -9,7 +9,7 @@ const Restaurant = ({ restaurant, meals }) => {
 
   const handleClick = () => {
     dispatch({ type: "SET_RESTAURANT", payload: restaurant.id });
-    history.push(`/restaurant/${restaurant.id}`);
+    history.push(`/api/restaurant/${restaurant.id}`);
   };
   return (
     <>

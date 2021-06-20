@@ -33,11 +33,7 @@ const getEg = async (req, res) => {
       config
     );
 
-    //www.yelp.com/biz/the-cool-bean-cafe-oakhurst?adjust_creative=hBZ__DNAoybHsv_MojmzmA&hrid=arSsZvDjZQ0_3JSUH5wsHA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_reviews
-
-    // http://api.reviewsmaker.com/yelp/?url=https://www.yelp.com/biz/chicha-brooklyn&api_key=4b3d3d92-27f4-4eaa-bb8b-281cb8aa3860
-
-    https: res.status(200).json({ data });
+    res.status(200).json({ data });
   } catch (error) {
     console.log(error);
   }
@@ -51,8 +47,6 @@ const getRestaurant = async (req, res) => {
   };
   try {
     const { data } = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}/reviews`, config);
-    // http://api.reviewsmaker.com/yelp/?url=https://www.yelp.com/biz/chicha-brooklyn&api_key=4b3d3d92-27f4-4eaa-bb8b-281cb8aa3860
-
     // const { rows } = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
     res.status(200).json({ reviews: data.reviews });
   } catch (error) {

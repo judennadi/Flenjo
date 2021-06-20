@@ -14,7 +14,7 @@ app.listen(process.env.PORT, () => {
   console.log("server running");
 });
 
-app.use("/restaurants", restaurantRoutes);
+app.use("/api/restaurants", restaurantRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

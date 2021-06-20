@@ -18,7 +18,7 @@ const Nav = ({ location }) => {
         }
       } else {
         if (sticky) {
-          sticky.style.top = "-64px";
+          sticky.style.top = "-54px";
           setScroll(true);
         }
       }
@@ -64,7 +64,7 @@ const Nav = ({ location }) => {
       </nav>
       <div
         className="search-sm"
-        style={location.pathname !== "/" || scroll ? { borderBottom: "none" } : null}
+        style={location.pathname !== "/" || scroll ? { borderBottom: "none", height: "45px" } : null}
       >
         {!scroll ? (
           <>

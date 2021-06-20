@@ -80,7 +80,7 @@ header {
   width: 100%;
   overflow: hidden;
   background: #fff;
-  transition: 0.4s;
+  transition: 0.5s;
   z-index: 1000;
 }
 .sticky {
@@ -92,7 +92,7 @@ header {
   box-shadow: var(--shadow);
 }
 .sticky + div {
-  height: 160px;
+  height: 135px;
 }
 .ck {
   top: -60;
@@ -102,7 +102,7 @@ nav {
   width: 100%;
   max-width: var(--max);
   height: 100%;
-  padding: 10px 15px;
+  padding: 5px 15px;
   display: flex;
   box-shadow: 0 1px 6px 1px rgba(32, 33, 36, 0.1);
 }
@@ -120,9 +120,9 @@ nav {
   border: 1px solid var(--hr);
 }
 .search-sm {
-  height: 50px;
+  height: 40px;
   width: 100%;
-  padding: 7px 15px 5px;
+  padding: 5px 15px;
   display: flex;
   border-bottom: 1px solid var(--shadowC2);
 }
@@ -152,14 +152,16 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
 }
+
 .input-icon {
   display: grid;
   place-items: center;
 }
 .search-sm .search-icon {
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
   margin-left: auto;
   border-radius: 50%;
   background: var(--sec);
@@ -167,7 +169,7 @@ nav {
 
 .nav-menu {
   width: 100%;
-  height: 63px;
+  height: 50px;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -183,7 +185,7 @@ nav {
   color: var(--text2);
 }
 .nav-menu ul li {
-  padding: 4px 20px 7px;
+  padding: 4px 30px 5px;
   display: grid;
   grid-template-columns: 100%;
   place-items: center;
@@ -192,8 +194,11 @@ nav {
 .nav-menu ul li:nth-child(3) {
   display: none;
 }
+.nav-menu ul li p {
+  font-size: 14px;
+}
 .nav-menu li div img {
-  width: 30px;
+  width: 20px;
 }
 .nav-menu-hr {
   display: none;
