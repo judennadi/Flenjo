@@ -14,8 +14,8 @@ const getAllRestaurants = async (req, res) => {
       config
     );
 
-    const { rows } = await db.query("SELECT * FROM restaurants");
-    res.status(200).json({ result: rows.length, data: data.businesses });
+    // const { rows } = await db.query("SELECT * FROM restaurants");
+    res.status(200).json({ data: data.businesses });
   } catch (error) {
     console.log(error);
   }
