@@ -37,7 +37,7 @@ const Nav = ({ location }) => {
     <>
       <nav>
         <div className="logo">
-          <h2>MEAL</h2>
+          <h2>FLENJO</h2>
         </div>
         <div className="nav-auth-sm">
           <Person color="primary" />
