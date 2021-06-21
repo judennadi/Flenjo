@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import axios from "axios";
+
+const Map = React.lazy(() => import("./map/Map"));
 
 const labels = {
   1: "Useless",
@@ -13,7 +15,7 @@ const labels = {
 };
 
 const RestaurantDetails = ({ match, history }) => {
-  const [restaurant, setRestaurant] = useState({});
+  const [restaurant, setRestaurant] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(0);
@@ -38,18 +40,6 @@ const RestaurantDetails = ({ match, history }) => {
     };
     fetchData();
   }, [match.params.id]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/restaurants/eg`);
-  //       console.log(data);
-  //       // dispatch({ type: "SET_RESTAURANTS", payload: data.data });
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
 
   return (
     <div className="container" style={{ minHeight: "100vh" }}>
@@ -73,6 +63,20 @@ const RestaurantDetails = ({ match, history }) => {
             </div>
 
             <div className="details-name">
+              <div className="map-con-sm">
+                <Suspense
+                  fallback={
+                    <div className="cen-grid">
+                      <CircularProgress size="30px" thickness={4} />
+                    </div>
+                  }
+                >
+                  <Map
+                    id={"map"}
+                    latLng={{ lat: restaurant.coordinates.latitude, lng: restaurant.coordinates.longitude }}
+                  />
+                </Suspense>
+              </div>
               <div>
                 <h4>{restaurant.name}</h4>
                 <div className="categories">
@@ -87,11 +91,27 @@ const RestaurantDetails = ({ match, history }) => {
                 <p>{restaurant.location.address1 + ", " + restaurant.location.city}</p>
               </div>
               <div>
-                <div>
-                  <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
-                  <p>{restaurant.rating}</p>
+                <div className="rating-con">
+                  <div>
+                    <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
+                    <p>{restaurant.rating}</p>
+                  </div>
+                  <p>{restaurant.review_count} Delivery Reviews</p>
                 </div>
-                <p>{restaurant.review_count} Delivery Reviews</p>
+                <div className="map-con-xl">
+                  <Suspense
+                    fallback={
+                      <div className="cen-grid">
+                        <CircularProgress size="30px" thickness={4} />
+                      </div>
+                    }
+                  >
+                    <Map
+                      id={"map"}
+                      latLng={{ lat: restaurant.coordinates.latitude, lng: restaurant.coordinates.longitude }}
+                    />
+                  </Suspense>
+                </div>
               </div>
             </div>
 
