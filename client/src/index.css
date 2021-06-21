@@ -976,6 +976,7 @@ section.best-food-list h4 {
 }
 .details-name h4 {
   font-size: 25px;
+  font-weight: 500;
 }
 .details-name div:nth-child(1) .categories {
   display: flex;
@@ -1041,6 +1042,10 @@ section.best-food-list h4 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 1px solid var(--shadowC2);
+  display: grid;
+  place-items: center;
+  background: var(--sec);
   overflow: hidden;
 }
 .review-dp div:nth-child(1) img {
@@ -1060,6 +1065,9 @@ section.best-food-list h4 {
   display: flex;
   margin-bottom: 10px;
   align-items: center;
+}
+.review > div:nth-child(2) span {
+  z-index: inherit;
 }
 .review > div:nth-child(2) p:nth-child(2) {
   margin-left: 3px;
@@ -1136,6 +1144,7 @@ section.best-food-list h4 {
   }
   .details-name div:nth-child(1) .categories p {
     margin-right: 5px;
+    font-size: 18px;
   }
   .details-name div:nth-child(2) {
     margin: 10px 0 7px;

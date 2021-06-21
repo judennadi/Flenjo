@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@material-ui/core";
-import { AddAPhotoOutlined } from "@material-ui/icons";
+import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import axios from "axios";
 
@@ -84,6 +84,7 @@ const RestaurantDetails = ({ match, history }) => {
                     )
                   )}
                 </div>
+                <p>{restaurant.location.address1 + ", " + restaurant.location.city}</p>
               </div>
               <div>
                 <div>
@@ -103,7 +104,11 @@ const RestaurantDetails = ({ match, history }) => {
                     <div key={review.id} className="review">
                       <div className="review-dp">
                         <div>
-                          <img src={review.user.image_url ? review.user.image_url : null} alt="" />
+                          {review.user.image_url ? (
+                            <img src={review.user.image_url} alt="" />
+                          ) : (
+                            <Person style={{ color: "#cfcfcf", fontSize: "30px" }} />
+                          )}
                         </div>
                         <div>
                           <p>{review.user.name}</p>
