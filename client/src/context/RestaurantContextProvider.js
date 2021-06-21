@@ -19,7 +19,7 @@ const RestaurantContextProvider = ({ children }) => {
       dispatch({ type: "SET_LOADING", payload: true });
 
       try {
-        const { data } = await axios.get(`/restaurants`);
+        const { data } = await axios.get(`/api/restaurants`);
         dispatch({ type: "SET_RESTAURANTS", payload: data.data });
       } catch (error) {
         dispatch({ type: "SET_ERROR", payload: true });
