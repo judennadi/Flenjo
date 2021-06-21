@@ -99,7 +99,9 @@ const RestaurantDetails = ({ match }) => {
                   {reviews.map((review) => (
                     <div key={review.id} className="review">
                       <div className="review-dp">
-                        <Avatar src={review.user.image_url ? review.user.image_url : null} />
+                        <div>
+                          <img src={review.user.image_url ? review.user.image_url : null} alt="" />
+                        </div>
                         <div>
                           <p>{review.user.name}</p>
                           <p>{review.time_created}</p>
