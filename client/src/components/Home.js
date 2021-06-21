@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
 import beef from "../img/foods/beef.jpg";
 import fish from "../img/foods/fish.jpg";
@@ -17,9 +17,9 @@ import burgerking from "../img/brands/burgerking.webp";
 import dominos from "../img/brands/dominos.webp";
 import kfc from "../img/brands/kfc.webp";
 import mcdelivery from "../img/brands/mcdelivery.webp";
-import Restaurant from "./Restaurant";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
+import RestaurantCard from "./RestaurantCard";
 import { CircularProgress } from "@material-ui/core";
+import axios from "axios";
 
 const meals = [
   { name: "Chicken", img: chicken },
@@ -39,7 +39,9 @@ const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { isLoading, restaurants } = useContext(RestaurantContext);
+  const [restaurants, setRestaurants] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(true);
   // const [userGeoPos, setUserGeoPos] = useState({});
   const mealRef = useRef([]);
   const promoRef = useRef([]);
@@ -92,6 +94,24 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setIsError(false);
+
+      try {
+        const { data } = await axios.get(`/api/restaurants`);
+        setRestaurants(data.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   // useEffect(() => {
   //   // navigator.geolocation.getCurrentPosition(success);
 
@@ -119,6 +139,10 @@ const Home = () => {
       {isLoading ? (
         <div className="loader">
           <CircularProgress size="40px" thickness={4} />
+        </div>
+      ) : isError ? (
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <h4>Oops! something went wrong</h4>
         </div>
       ) : (
         <>
@@ -203,7 +227,7 @@ const Home = () => {
             <h4>Best Food within your location</h4>
             <div className="best-food-con">
               {restaurants.map((restaurant) => (
-                <Restaurant key={restaurant.id} restaurant={restaurant} meals={meals} />
+                <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
               ))}
             </div>
           </section>

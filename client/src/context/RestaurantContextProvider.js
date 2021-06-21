@@ -7,7 +7,7 @@ export const RestaurantContext = createContext();
 const prevRestaurant = JSON.parse(sessionStorage.getItem("restaurant"));
 const initialState = prevRestaurant
   ? { isLoading: true, isError: false, restaurants: [], restaurant: prevRestaurant }
-  : { isLoading: true, isError: false, restaurants: [], restaurant: {} };
+  : { isLoading: true, isError: false, restaurants: [], restaurant: null };
 
 const RestaurantContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);

@@ -1,14 +1,10 @@
-import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
 
-const Restaurant = ({ restaurant, meals }) => {
+const RestaurantCard = ({ restaurant, meals }) => {
   const history = useHistory();
-  const { dispatch } = useContext(RestaurantContext);
 
   const handleClick = () => {
-    dispatch({ type: "SET_RESTAURANT", payload: restaurant.id });
     history.push(`/restaurant/${restaurant.id}`);
   };
   return (
@@ -39,4 +35,4 @@ const Restaurant = ({ restaurant, meals }) => {
   );
 };
 
-export default Restaurant;
+export default RestaurantCard;

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
+import { useEffect, useState } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
@@ -13,20 +12,24 @@ const labels = {
   5: "Excellent",
 };
 
-const RestaurantDetails = ({ match }) => {
-  const id = match.params.id;
-  const { restaurant } = useContext(RestaurantContext);
+const RestaurantDetails = ({ match, history }) => {
+  const [restaurant, setRestaurant] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(0);
   const [hover, setHover] = useState(-1);
 
+  console.log(restaurant);
+
+  // useEffect(() => {
+  // });
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`/api/restaurants/${id}`);
+        const { data } = await axios.get(`/api/restaurants/${match.params.id}`);
         console.log(data);
+        setRestaurant(data.restaurant);
         setReviews(data.reviews);
         setIsLoading(false);
       } catch (error) {
@@ -34,7 +37,7 @@ const RestaurantDetails = ({ match }) => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [match.params.id]);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -49,53 +52,53 @@ const RestaurantDetails = ({ match }) => {
   // }, []);
 
   return (
-    <div className="container">
+    <div className="container" style={{ minHeight: "100vh" }}>
       <section className="restaurant-details">
-        <div className="details-img-grid">
-          <div>
-            <img src={restaurant.image_url} alt="" />
+        {isLoading ? (
+          <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
+            <CircularProgress size="30px" thickness={4} />
           </div>
-          <div>
-            <img src={restaurant.image_url} alt="" />
-          </div>
-          <div>
-            <AddAPhotoOutlined fontSize="large" style={{ color: "rgba(0,0,0,0.7)" }} />
-          </div>
-        </div>
-
-        <div className="details-name">
-          <div>
-            <h4>{restaurant.name}</h4>
-            <div className="categories">
-              {restaurant.categories.map((x, idx) =>
-                idx === restaurant.categories.length - 1 ? (
-                  <p key={idx}>{x.title}</p>
-                ) : (
-                  <p key={idx}>{x.title},</p>
-                )
-              )}
+        ) : (
+          <>
+            <div className="details-img-grid">
+              <div>
+                <img src={restaurant.image_url} alt="" />
+              </div>
+              <div>
+                <img src={restaurant.image_url} alt="" />
+              </div>
+              <div>
+                <AddAPhotoOutlined fontSize="large" style={{ color: "rgba(0,0,0,0.7)" }} />
+              </div>
             </div>
-          </div>
-          <div>
-            <div>
-              <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
-              <p>{restaurant.rating}</p>
-            </div>
-            <p>{restaurant.review_count} Delivery Reviews</p>
-          </div>
-        </div>
 
-        <div className="reviews">
-          <h4>Reviews</h4>
-          <hr className="hr-xl" />
-          <div>
-            <div>
-              {isLoading ? (
-                <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-                  <CircularProgress size="30px" thickness={4} />
+            <div className="details-name">
+              <div>
+                <h4>{restaurant.name}</h4>
+                <div className="categories">
+                  {restaurant.categories.map((x, idx) =>
+                    idx === restaurant.categories.length - 1 ? (
+                      <p key={idx}>{x.title}</p>
+                    ) : (
+                      <p key={idx}>{x.title},</p>
+                    )
+                  )}
                 </div>
-              ) : (
-                <>
+              </div>
+              <div>
+                <div>
+                  <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
+                  <p>{restaurant.rating}</p>
+                </div>
+                <p>{restaurant.review_count} Delivery Reviews</p>
+              </div>
+            </div>
+
+            <div className="reviews">
+              <h4>Reviews</h4>
+              <hr className="hr-xl" />
+              <div>
+                <div>
                   {reviews.map((review) => (
                     <div key={review.id} className="review">
                       <div className="review-dp">
@@ -114,32 +117,32 @@ const RestaurantDetails = ({ match }) => {
                       <p>{review.text}</p>
                     </div>
                   ))}
-                </>
-              )}
-            </div>
-            <div>
-              <div className="add-review">
-                <h4>Rate your delivery experience</h4>
-                <div>
-                  <Rating
-                    size="large"
-                    name="hover-feedback"
-                    value={value}
-                    precision={1}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                    onChangeActive={(event, newHover) => {
-                      setHover(newHover);
-                    }}
-                  />
-                  {value !== null && <p>{labels[hover !== -1 ? hover : value]}</p>}
                 </div>
-                <p onClick={() => {}}>Write a Review</p>
+                <div>
+                  <div className="add-review">
+                    <h4>Rate your delivery experience</h4>
+                    <div>
+                      <Rating
+                        size="large"
+                        name="hover-feedback"
+                        value={value}
+                        precision={1}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                          setHover(newHover);
+                        }}
+                      />
+                      {value !== null && <p>{labels[hover !== -1 ? hover : value]}</p>}
+                    </div>
+                    <p onClick={() => {}}>Write a Review</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </section>
     </div>
   );

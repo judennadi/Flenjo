@@ -10,7 +10,7 @@ const getAllRestaurants = async (req, res) => {
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?location=CA&limit=21`,
+      `https://api.yelp.com/v3/businesses/search?term=coffee&location=CA&limit=21`,
       config
     );
 
@@ -46,9 +46,12 @@ const getRestaurant = async (req, res) => {
     headers: { Authorization: `Bearer ${token}` },
   };
   try {
-    const { data } = await axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}/reviews`, config);
+    const response = await Promise.all([
+      axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}`, config),
+      axios.get(`https://api.yelp.com/v3/businesses/${req.params.id}/reviews`, config),
+    ]);
     // const { rows } = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
-    res.status(200).json({ reviews: data.reviews });
+    res.status(200).json({ restaurant: response[0].data, reviews: response[1].data.reviews });
   } catch (error) {
     console.log(error);
   }
