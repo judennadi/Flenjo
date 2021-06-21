@@ -84,7 +84,7 @@ const Navbar = () => {
     <div className="container">
       {location.pathname === "/" ? (
         <header className={scroll ? "sticky" : ""}>
-          <Nav location={location} />
+          <Nav location={location} history={history} />
 
           <div className="nav-menu">
             <ul>
@@ -154,7 +154,7 @@ const Navbar = () => {
           className={scroll ? "sticky2" : ""}
           style={!mqXl.matches ? { paddingBottom: "5px", borderBottom: "1px solid #3636361a" } : null}
         >
-          <Nav location={location} />
+          <Nav location={location} history={history} />
 
           <div className="nav-menu">
             <ul>

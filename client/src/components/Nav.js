@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, LocationOn, Person } from "@material-ui/icons";
 
-const Nav = ({ location }) => {
+const Nav = ({ location, history }) => {
   const [scroll, setScroll] = useState(false);
   let mql = window.matchMedia("(max-width: 600px)");
   let prevScrollPos = window.pageYOffset;
@@ -42,7 +42,7 @@ const Nav = ({ location }) => {
     <>
       <nav>
         <div className="logo">
-          <h2>FLENJO</h2>
+          <h2 onClick={() => history.push("/")}>FLENJO</h2>
         </div>
         <div className="nav-auth-sm">
           <Person color="primary" />
