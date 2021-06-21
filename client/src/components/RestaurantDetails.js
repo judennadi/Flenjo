@@ -3,7 +3,6 @@ import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import axios from "axios";
-
 const Map = React.lazy(() => import("./map/Map"));
 
 const labels = {
@@ -15,7 +14,7 @@ const labels = {
 };
 
 const RestaurantDetails = ({ match, history }) => {
-  const [restaurant, setRestaurant] = useState(null);
+  const [restaurant, setRestaurant] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(0);
@@ -63,20 +62,6 @@ const RestaurantDetails = ({ match, history }) => {
             </div>
 
             <div className="details-name">
-              <div className="map-con-sm">
-                <Suspense
-                  fallback={
-                    <div className="cen-grid">
-                      <CircularProgress size="30px" thickness={4} />
-                    </div>
-                  }
-                >
-                  <Map
-                    id={"map"}
-                    latLng={{ lat: restaurant.coordinates.latitude, lng: restaurant.coordinates.longitude }}
-                  />
-                </Suspense>
-              </div>
               <div>
                 <h4>{restaurant.name}</h4>
                 <div className="categories">
@@ -89,16 +74,7 @@ const RestaurantDetails = ({ match, history }) => {
                   )}
                 </div>
                 <p>{restaurant.location.address1 + ", " + restaurant.location.city}</p>
-              </div>
-              <div>
-                <div className="rating-con">
-                  <div>
-                    <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
-                    <p>{restaurant.rating}</p>
-                  </div>
-                  <p>{restaurant.review_count} Delivery Reviews</p>
-                </div>
-                <div className="map-con-xl">
+                <div className="map-con">
                   <Suspense
                     fallback={
                       <div className="cen-grid">
@@ -112,6 +88,13 @@ const RestaurantDetails = ({ match, history }) => {
                     />
                   </Suspense>
                 </div>
+              </div>
+              <div>
+                <div>
+                  <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
+                  <p>{restaurant.rating}</p>
+                </div>
+                <p>{restaurant.review_count} Delivery Reviews</p>
               </div>
             </div>
 

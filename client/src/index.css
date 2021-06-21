@@ -955,34 +955,25 @@ section.best-food-list h4 {
   flex-direction: column-reverse;
   padding: 10px 15px;
 }
-.details-name .map-con-sm {
-  width: 100%;
-  height: 160px;
-  padding: 10px 0 0;
-}
-
-.details-name div:nth-child(3) .rating-con {
+.details-name div:nth-child(2) {
   display: flex;
   margin-bottom: 10px;
 }
-.details-name div:nth-child(3) .rating-con > div {
+.details-name div:nth-child(2) > div {
   display: flex;
   gap: 5px;
   align-items: center;
 }
-.details-name div:nth-child(3) .rating-con > p {
+.details-name div:nth-child(2) > p {
   font-weight: 500;
   font-size: 15px;
   margin-left: 10px;
   border-bottom: 1px dashed var(--text2);
   display: inline-block;
 }
-.details-name div:nth-child(3) .rating-con > div p {
+.details-name div:nth-child(2) > div p {
   font-size: 19px;
   font-weight: 600;
-}
-.details-name div:nth-child(3) .map-con-xl {
-  display: none;
 }
 
 .details-name > div {
@@ -992,18 +983,25 @@ section.best-food-list h4 {
   font-size: 25px;
   font-weight: 500;
 }
-.details-name div:nth-child(2) .categories {
+.details-name div:nth-child(1) .categories {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-.details-name div:nth-child(2) .categories p {
+.details-name div:nth-child(1) .categories p {
   margin: 5px 5px 0 0;
   margin-left: 0;
   font-size: initial;
   color: var(--text2);
   font-weight: 500;
   border: none;
+}
+.details-name div:nth-child(1) .map-con {
+  width: 100%;
+  max-width: 440px;
+  height: 160px;
+  border: 1px solid var(--shadowC2);
+  margin: 10px 0;
 }
 .reviews {
   width: 100%;
@@ -1012,7 +1010,7 @@ section.best-food-list h4 {
   display: inline-block;
   font-size: 20px;
   font-weight: 600px;
-  padding: 10px 30px 10px 20px;
+  padding: 0 30px 10px 20px;
   border-bottom: 3px solid var(--pri);
   color: var(--pri);
 }
@@ -1021,9 +1019,12 @@ section.best-food-list h4 {
   flex-direction: column-reverse;
 }
 .add-review {
-  padding: 10px 15px;
+  padding: 20px 15px;
   border-bottom: 1px solid var(--shadowC2);
   margin-bottom: 10px;
+}
+.add-review span {
+  z-index: -1000;
 }
 .add-review h4 {
   font-size: 18px;
@@ -1081,7 +1082,7 @@ section.best-food-list h4 {
   align-items: center;
 }
 .review > div:nth-child(2) span {
-  z-index: inherit;
+  z-index: -1000;
 }
 .review > div:nth-child(2) p:nth-child(2) {
   margin-left: 3px;
@@ -1089,9 +1090,6 @@ section.best-food-list h4 {
 }
 
 @media screen and (min-width: 600px) {
-  .details-name .map-con-sm {
-    display: none;
-  }
   .restaurant-details {
     max-width: var(--max);
     margin: 20px auto 0;
@@ -1159,43 +1157,18 @@ section.best-food-list h4 {
     font-size: 30px;
     margin: 10px 0 7px;
   }
-  .details-name div:nth-child(2) .categories p {
+  .details-name div:nth-child(1) .categories p {
     margin-right: 5px;
     font-size: 18px;
   }
-  .details-name div:nth-child(3) {
-    display: block;
-  }
-  .details-name div:nth-child(3) .rating-con {
+  .details-name div:nth-child(2) {
     margin: 10px 0 7px;
     display: grid;
     justify-content: end;
+    max-height: 60px;
   }
-  .details-name div:nth-child(3) .rating-con div {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-  }
-  .details-name div:nth-child(3) .rating-con p {
+  .details-name div:nth-child(2) > p {
     margin: 5px 0;
-    font-size: 19px;
-    font-weight: 600;
-  }
-  .details-name div:nth-child(3) .rating-con > p {
-    font-weight: 500;
-    font-size: 15px;
-    margin-left: 10px;
-    border-bottom: 1px dashed var(--text2);
-    display: inline-block;
-  }
-  .details-name div:nth-child(3) {
-    margin-bottom: 0;
-  }
-
-  .details-name div:nth-child(3) .map-con-xl {
-    width: 100%;
-    height: 150px;
-    border: 1px solid var(--shadowC2);
   }
 
   .reviews > h4 {
@@ -1245,7 +1218,7 @@ section.best-food-list h4 {
   text-align: center;
   padding: 20px;
   margin-top: 20px;
-  margin-bottom: 62px;
+  margin-bottom: 49px;
 }
 
 @media screen and (min-width: 600px) {

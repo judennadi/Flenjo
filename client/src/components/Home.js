@@ -48,10 +48,6 @@ const Home = () => {
 
   console.log(restaurants);
 
-  // useEffect(() => {
-  //   setRestaurants(restaurants);
-  // }, [state]);
-
   const isInViewport = (el) => {
     let bounding = el.getBoundingClientRect();
     return (

@@ -4,12 +4,12 @@ const Map = (props) => {
   const onScriptLoad = () => {
     let options = {
       center: props.latLng,
-      zoom: 16,
+      zoom: 15,
     };
 
     const mapId = document.getElementById(props.id);
     const map = new window.google.maps.Map(mapId, options);
-    const marker = new window.google.maps.Marker({
+    let marker = new window.google.maps.Marker({
       position: props.latLng,
       map,
     });
