@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -50,6 +50,7 @@ function App() {
             <Route path="/resetpassword/:id" component={ResetPassword} />
             <Route path="/restaurant/:id" component={RestaurantDetails} />
             <Route path="/food/:id" component={FoodDetails} />
+            <Route path="*" render={() => <Redirect to="/" />} />
           </Switch>
           <Footer />
         </div>
