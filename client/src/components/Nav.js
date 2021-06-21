@@ -8,7 +8,12 @@ const Nav = ({ location }) => {
 
   const myScroll = () => {
     let currentScrollPos = window.pageYOffset;
-    const sticky = document.querySelector(".sticky");
+    let sticky;
+    if (location.pathname === "/") {
+      sticky = document.querySelector(".sticky");
+    } else {
+      sticky = document.querySelector(".sticky2");
+    }
 
     if (mql.matches) {
       if (prevScrollPos >= currentScrollPos) {

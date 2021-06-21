@@ -151,7 +151,7 @@ const Navbar = () => {
         </header>
       ) : (
         <header
-          className={scroll ? "sticky" : ""}
+          className={scroll ? "sticky2" : ""}
           style={!mqXl.matches ? { paddingBottom: "5px", borderBottom: "1px solid #3636361a" } : null}
         >
           <Nav location={location} />

@@ -94,6 +94,17 @@ header {
 .sticky + div {
   height: 135px;
 }
+.sticky2 {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: var(--shadow);
+}
+.sticky2 + div {
+  height: 95px;
+}
 .ck {
   top: -60;
 }

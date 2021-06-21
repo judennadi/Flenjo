@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../context/RestaurantContextProvider";
-import { Avatar, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import axios from "axios";
