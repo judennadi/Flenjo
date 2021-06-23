@@ -37,8 +37,7 @@ export const StarRating = ({ value }) => {
 
   return (
     <div style={{ display: "inline-block", width: "auto" }}>
-      {value !== null && <p>{labels[value]}</p>}
-      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "0" }}>{stars}</ul>
+      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "2px 0 0" }}>{stars}</ul>
     </div>
   );
 };
