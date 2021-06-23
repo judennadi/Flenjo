@@ -1044,10 +1044,7 @@ section.best-food-list h4 {
   font-weight: 500;
   margin-top: 10px;
 }
-.add-review div {
-  display: flex;
-  align-items: center;
-}
+
 .add-review div p {
   font-weight: 500;
   margin-left: 10px;

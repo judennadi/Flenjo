@@ -1,4 +1,13 @@
 import { Star, StarHalf } from "@material-ui/icons";
+import { useState } from "react";
+
+const labels = {
+  1: "Useless",
+  2: "Poor",
+  3: "Ok",
+  4: "Good",
+  5: "Excellent",
+};
 
 // Display rating
 export const StarRating = ({ value }) => {
@@ -28,13 +37,15 @@ export const StarRating = ({ value }) => {
 
   return (
     <div style={{ display: "inline-block", width: "auto" }}>
+      {value !== null && <p>{labels[value]}</p>}
       <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "0" }}>{stars}</ul>
     </div>
   );
 };
 
 // Add rating
-export const AddStarRating = ({ size, value, setValue }) => {
+export const AddStarRating = ({ size }) => {
+  const [value, setValue] = useState(0);
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= value) {
@@ -54,7 +65,10 @@ export const AddStarRating = ({ size, value, setValue }) => {
 
   return (
     <div style={{ display: "inline-block", width: "auto" }}>
-      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "0" }}>{stars}</ul>
+      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "0", alignItems: "center" }}>
+        {stars}
+        <li>{value !== null && <p style={{ fontWeight: "500" }}>{labels[value]}</p>}</li>
+      </ul>
     </div>
   );
 };

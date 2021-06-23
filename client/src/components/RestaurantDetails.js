@@ -6,19 +6,10 @@ import axios from "axios";
 import { StarRating, AddStarRating } from "./accessories/StarRating";
 const Map = React.lazy(() => import("./accessories/Map"));
 
-const labels = {
-  1: "Useless",
-  2: "Poor",
-  3: "Ok",
-  4: "Good",
-  5: "Excellent",
-};
-
 const RestaurantDetails = ({ match, history }) => {
   const [restaurant, setRestaurant] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [value, setValue] = useState(0);
 
   console.log(restaurant);
 
@@ -130,8 +121,7 @@ const RestaurantDetails = ({ match, history }) => {
                   <div className="add-review">
                     <h4>Rate your delivery experience</h4>
                     <div>
-                      <AddStarRating size="large" value={value} setValue={setValue} />
-                      {value !== null && <p>{labels[value]}</p>}
+                      <AddStarRating size="large" />
                     </div>
                     <p onClick={() => {}}>Write a Review</p>
                   </div>
