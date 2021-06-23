@@ -3,7 +3,8 @@ import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import axios from "axios";
-const Map = React.lazy(() => import("./map/Map"));
+import { StarRating, AddStarRating } from "./accessories/StarRating";
+const Map = React.lazy(() => import("./accessories/Map"));
 
 const labels = {
   1: "Useless",
@@ -18,7 +19,6 @@ const RestaurantDetails = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState(0);
-  const [hover, setHover] = useState(-1);
 
   console.log(restaurant);
 
@@ -119,7 +119,7 @@ const RestaurantDetails = ({ match, history }) => {
                         </div>
                       </div>
                       <div>
-                        <Rating value={review.rating} readOnly named={review.id} precision={0.5} />
+                        <StarRating value={review.rating} />
                         <p>{review.rating}</p>
                       </div>
                       <p>{review.text}</p>
@@ -130,19 +130,8 @@ const RestaurantDetails = ({ match, history }) => {
                   <div className="add-review">
                     <h4>Rate your delivery experience</h4>
                     <div>
-                      <Rating
-                        size="large"
-                        name="hover-feedback"
-                        value={value}
-                        precision={1}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                        onChangeActive={(event, newHover) => {
-                          setHover(newHover);
-                        }}
-                      />
-                      {value !== null && <p>{labels[hover !== -1 ? hover : value]}</p>}
+                      <AddStarRating size="large" value={value} setValue={setValue} />
+                      {value !== null && <p>{labels[value]}</p>}
                     </div>
                     <p onClick={() => {}}>Write a Review</p>
                   </div>

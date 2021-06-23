@@ -350,7 +350,6 @@ nav {
   .nav-menu ul li:nth-child(3) {
     display: flex;
   }
-
   .nav-menu li div {
     width: 60px;
     height: 60px;
@@ -358,6 +357,9 @@ nav {
     background: var(--sec);
     display: grid;
     place-items: center;
+  }
+  .nav-menu li div img {
+    width: 30px;
   }
   .nav-menu ul li p {
     color: var(--bold2);
@@ -546,6 +548,10 @@ nav {
   gap: 15px;
   overflow: auto;
   white-space: nowrap;
+  scrollbar-width: none;
+}
+.top-brands > div::-webkit-scrollbar {
+  display: none;
 }
 .top-brands h4 {
   font-size: 22px;
@@ -944,7 +950,11 @@ section.best-food-list h4 {
 .details-img-grid div:nth-child(n + 2) {
   display: none;
 }
-.details-img-grid div img {
+.details-img-grid div:nth-child(1) {
+  height: 100%;
+  width: 100%;
+}
+.details-img-grid div:nth-child(1) img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1023,9 +1033,7 @@ section.best-food-list h4 {
   border-bottom: 1px solid var(--shadowC2);
   margin-bottom: 10px;
 }
-.add-review span {
-  z-index: -1000;
-}
+
 .add-review h4 {
   font-size: 18px;
   margin-bottom: 10px;
@@ -1081,9 +1089,7 @@ section.best-food-list h4 {
   margin-bottom: 10px;
   align-items: center;
 }
-.review > div:nth-child(2) span {
-  z-index: -1000;
-}
+
 .review > div:nth-child(2) p:nth-child(2) {
   margin-left: 3px;
   font-weight: 500;
