@@ -79,6 +79,10 @@ body {
   place-items: center;
 }
 
+.pagination > * {
+  margin-top: 10px;
+}
+
 /* ================= Navbar =================== */
 
 header {
@@ -113,7 +117,7 @@ header {
 .ck {
   top: -60;
 }
-nav {
+header nav {
   height: 64px;
   width: 100%;
   max-width: var(--max);
@@ -277,7 +281,7 @@ nav {
     padding: 10px;
     cursor: pointer;
   }
-  nav {
+  header nav {
     height: 70px;
     margin: 0 auto;
     display: grid;
@@ -1227,5 +1231,6 @@ section.best-food-list h4 {
 @media screen and (min-width: 600px) {
   .footer {
     margin-bottom: 0;
+    /* height: 100vh; */
   }
 }

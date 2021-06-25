@@ -20,6 +20,7 @@ import mcdelivery from "../img/brands/mcdelivery.webp";
 import RestaurantCard from "./RestaurantCard";
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
+import Pagination from "./Pagination";
 
 const meals = [
   { name: "Chicken", img: chicken },
@@ -41,10 +42,13 @@ const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcde
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubLoading, setIsSubLoading] = useState(false);
   const [isError, setIsError] = useState(true);
-  // const [userGeoPos, setUserGeoPos] = useState({});
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(null);
   const mealRef = useRef([]);
   const promoRef = useRef([]);
+  const mqXl = window.matchMedia("(min-width: 601px)");
 
   console.log(restaurants);
 
@@ -92,13 +96,21 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      if (page <= 1) {
+        setIsLoading(true);
+        setIsSubLoading(false);
+      } else {
+        setIsLoading(false);
+        setIsSubLoading(true);
+      }
       setIsError(false);
 
       try {
-        const { data } = await axios.get(`/api/restaurants`);
+        const { data } = await axios.get(`/api/restaurants?page=${page - 1}`);
         setRestaurants(data.data);
+        setTotal(data.total);
         setIsLoading(false);
+        setIsSubLoading(false);
       } catch (error) {
         setIsLoading(false);
         setIsError(true);
@@ -106,7 +118,11 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [page]);
+
+  // useEffect(() => {
+  //   document.documentElement.scrollTop = 775;
+  // }, [page]);
 
   // useEffect(() => {
   //   // navigator.geolocation.getCurrentPosition(success);
@@ -132,7 +148,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      {isLoading ? (
+      {isLoading && !isSubLoading ? (
         <div className="loader">
           <CircularProgress size="40px" thickness={4} />
         </div>
@@ -222,9 +238,21 @@ const Home = () => {
           <section className="best-food-list container">
             <h4>Best Food within your location</h4>
             <div className="best-food-con">
-              {restaurants.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
-              ))}
+              {isSubLoading ? (
+                <div
+                  className="cen-grid"
+                  style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
+                >
+                  <CircularProgress size="30px" thickness={4} />
+                </div>
+              ) : (
+                restaurants.map((restaurant) => (
+                  <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
+                ))
+              )}
+            </div>
+            <div>
+              <Pagination page={page} setPage={setPage} total={total} />
             </div>
           </section>
         </>

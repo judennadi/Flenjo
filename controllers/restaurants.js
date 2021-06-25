@@ -3,6 +3,7 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllRestaurants = async (req, res) => {
+  const { page } = req.query;
   const token =
     "rPF8LXa4WNvtdNO7k2jtwKY17VsyIsEQQUWHZiN-R93JR2bQ8LMdzAR_cLMijcUE91WEuq17OciXUWSodtHTdqJ_7f6PuDEbEEdgXV_B6KZb65vYBZD56VWTZBPLYHYx";
   const config = {
@@ -10,12 +11,12 @@ const getAllRestaurants = async (req, res) => {
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?term=coffee&location=CA&limit=21`,
+      `https://api.yelp.com/v3/businesses/search?term=coffee&location=CA&limit=30&offset=${page * 30}`,
       config
     );
-
+    console.log(page);
     // const { rows } = await db.query("SELECT * FROM restaurants");
-    res.status(200).json({ data: data.businesses });
+    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
   } catch (error) {
     res.status(400).json({ error: error.message });
     console.log(error);
