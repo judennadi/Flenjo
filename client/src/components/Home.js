@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useContext } from "react";
 import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
+import { RestaurantContext } from "../context/RestaurantContextProvider";
 import beef from "../img/foods/beef.jpg";
 import fish from "../img/foods/fish.jpg";
 import chicken from "../img/foods/chicken.jpg";
@@ -19,7 +20,6 @@ import kfc from "../img/brands/kfc.webp";
 import mcdelivery from "../img/brands/mcdelivery.webp";
 import RestaurantCard from "./RestaurantCard";
 import { CircularProgress } from "@material-ui/core";
-import axios from "axios";
 import Pagination from "./Pagination";
 
 const meals = [
@@ -40,17 +40,16 @@ const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const [restaurants, setRestaurants] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSubLoading, setIsSubLoading] = useState(false);
-  const [isError, setIsError] = useState(true);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(null);
+  const { restaurants, term, isLoading, isSubLoading, isError } = useContext(RestaurantContext);
+  // const [restaurants, setRestaurants] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [isSubLoading, setIsSubLoading] = useState(false);
+  // const [isError, setIsError] = useState(true);
+  // const [page, setPage] = useState(1);
+  // const [total, setTotal] = useState(null);
   const mealRef = useRef([]);
   const promoRef = useRef([]);
   const mqXl = window.matchMedia("(min-width: 601px)");
-
-  console.log(restaurants);
 
   const isInViewport = (el) => {
     let bounding = el.getBoundingClientRect();
@@ -94,31 +93,31 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (page <= 1) {
-        setIsLoading(true);
-        setIsSubLoading(false);
-      } else {
-        setIsLoading(false);
-        setIsSubLoading(true);
-      }
-      setIsError(false);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (page <= 1) {
+  //       setIsLoading(true);
+  //       setIsSubLoading(false);
+  //     } else {
+  //       setIsLoading(false);
+  //       setIsSubLoading(true);
+  //     }
+  //     setIsError(false);
 
-      try {
-        const { data } = await axios.get(`/api/restaurants?page=${page - 1}`);
-        setRestaurants(data.data);
-        setTotal(data.total);
-        setIsLoading(false);
-        setIsSubLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setIsError(true);
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, [page]);
+  //     try {
+  //       const { data } = await axios.get(`/api/restaurants?page=${page - 1}`);
+  //       setRestaurants(data.data);
+  //       setTotal(data.total);
+  //       setIsLoading(false);
+  //       setIsSubLoading(false);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       setIsError(true);
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [page]);
 
   // useEffect(() => {
   //   document.documentElement.scrollTop = 775;
@@ -236,7 +235,7 @@ const Home = () => {
           </section>
 
           <section className="best-food-list container">
-            <h4>Best Food within your location</h4>
+            <h4>{term ? `Best results for: ${term}` : "Best Food within your location"}</h4>
             <div className="best-food-con">
               {isSubLoading ? (
                 <div
@@ -252,7 +251,7 @@ const Home = () => {
               )}
             </div>
             <div>
-              <Pagination page={page} setPage={setPage} total={total} />
+              <Pagination />
             </div>
           </section>
         </>

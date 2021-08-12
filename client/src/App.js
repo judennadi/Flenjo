@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
 import DiningOut from "./components/DiningOut";
 import Nightlife from "./components/Nightlife";
@@ -12,6 +12,7 @@ import ResetPassword from "./components/auth/ResetPassword";
 import Footer from "./components/Footer";
 import RestaurantDetails from "./components/RestaurantDetails";
 import FoodDetails from "./components/FoodDetails";
+import NotFound from "./components/NotFound";
 
 const theme = createMuiTheme({
   palette: {
@@ -42,6 +43,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/dine-out" component={DiningOut} />
+            <Route path="/404" component={NotFound} />
             <Route path="/nightlife" component={Nightlife} />
             <Route path="/nutrition" component={Nutrition} />
             <Route path="/login" component={Login} />

@@ -1,17 +1,23 @@
 const restaurantReducer = (state, action) => {
   if (action.type === "SET_RESTAURANTS") {
-    return { ...state, restaurants: action.payload, isLoading: false, isError: false };
-  } else if (action.type === "SET_RESTAURANT") {
-    for (let i = 0; i < state.restaurants.length; i++) {
-      if (state.restaurants[i].id === action.payload) {
-        sessionStorage.setItem("restaurant", JSON.stringify(state.restaurants[i]));
-        return { ...state, restaurant: state.restaurants[i] };
-      }
-    }
+    return {
+      ...state,
+      restaurants: action.payload,
+      total: action.total,
+      isLoading: false,
+      isSubLoading: false,
+      isError: false,
+    };
   } else if (action.type === "SET_LOADING") {
-    return { ...state, isLoading: action.payload };
+    return { ...state, isLoading: action.payload, isSubLoading: false, isError: false };
+  } else if (action.type === "SET_SUBLOADING") {
+    return { ...state, isSubLoading: action.payload, isLoading: false, isError: false };
   } else if (action.type === "SET_ERROR") {
-    return { ...state, isError: action.payload };
+    return { ...state, isError: action.payload, isLoading: false, isSubLoading: false };
+  } else if (action.type === "SET_PAGE") {
+    return { ...state, page: action.payload };
+  } else if (action.type === "SET_TERM") {
+    return { ...state, term: action.payload };
   } else {
     return state;
   }

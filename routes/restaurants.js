@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const {
   getAllRestaurants,
+  searchAutocomplete,
   getRestaurant,
   addRestaurant,
   updateRestaurant,
@@ -10,6 +11,7 @@ const {
 } = require("../controllers/restaurants");
 
 router.get("/", getAllRestaurants);
+router.get("/search/autocomplete", searchAutocomplete);
 router.get("/eg", getEg);
 router.get("/:id", getRestaurant);
 router.post("/", addRestaurant);

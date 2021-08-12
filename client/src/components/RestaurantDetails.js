@@ -17,14 +17,20 @@ const RestaurantDetails = ({ match, history }) => {
   // });
   useEffect(() => {
     const fetchData = async () => {
+      const source = axios.CancelToken.source();
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`/api/restaurants/${match.params.id}`);
+        const { data } = await axios.get(`/api/restaurants/${match.params.id}`, {
+          cancelToken: source.token,
+        });
         console.log(data);
         setRestaurant(data.restaurant);
         setReviews(data.reviews);
         setIsLoading(false);
       } catch (error) {
+        if (axios.isCancel(error)) {
+          return;
+        }
         console.error(error);
       }
     };

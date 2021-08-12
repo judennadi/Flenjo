@@ -3,18 +3,19 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllRestaurants = async (req, res) => {
-  const { page } = req.query;
-  const token =
-    "rPF8LXa4WNvtdNO7k2jtwKY17VsyIsEQQUWHZiN-R93JR2bQ8LMdzAR_cLMijcUE91WEuq17OciXUWSodtHTdqJ_7f6PuDEbEEdgXV_B6KZb65vYBZD56VWTZBPLYHYx";
+  const { page, term } = req.query;
+  // console.log(req.query.term);
+  const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?term=coffee&location=CA&limit=30&offset=${page * 30}`,
+      `https://api.yelp.com/v3/businesses/search?term=${term ? term : ""}&location=CA&limit=30&offset=${
+        page * 30
+      }`,
       config
     );
-    console.log(page);
     // const { rows } = await db.query("SELECT * FROM restaurants");
     res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
   } catch (error) {
@@ -24,8 +25,7 @@ const getAllRestaurants = async (req, res) => {
 };
 
 const getEg = async (req, res) => {
-  const token =
-    "rPF8LXa4WNvtdNO7k2jtwKY17VsyIsEQQUWHZiN-R93JR2bQ8LMdzAR_cLMijcUE91WEuq17OciXUWSodtHTdqJ_7f6PuDEbEEdgXV_B6KZb65vYBZD56VWTZBPLYHYx";
+  const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -41,9 +41,23 @@ const getEg = async (req, res) => {
   }
 };
 
+const searchAutocomplete = async (req, res) => {
+  const token = process.env.YELP_API_KEY;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  try {
+    const { data } = await axios.get(`https://api.yelp.com/v3/autocomplete?text=${req.query.text}`, config);
+
+    // const { rows } = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
+    res.status(200).json({ terms: [...data.categories, ...data.terms] });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getRestaurant = async (req, res) => {
-  const token =
-    "rPF8LXa4WNvtdNO7k2jtwKY17VsyIsEQQUWHZiN-R93JR2bQ8LMdzAR_cLMijcUE91WEuq17OciXUWSodtHTdqJ_7f6PuDEbEEdgXV_B6KZb65vYBZD56VWTZBPLYHYx";
+  const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -109,6 +123,7 @@ const deleteRestaurant = async (req, res) => {
 
 module.exports = {
   getAllRestaurants,
+  searchAutocomplete,
   getRestaurant,
   addRestaurant,
   updateRestaurant,

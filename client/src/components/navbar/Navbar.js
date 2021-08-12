@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { SwapVert, FilterList } from "@material-ui/icons";
 import Nav from "./Nav";
-import nutritionPri from "../img/nav/plan (1).png";
-import nutritionSec from "../img/nav/plan.png";
-import nightlifePri from "../img/nav/whiskey (1).png";
-import nightlifeSec from "../img/nav/whiskey.png";
-import deliveryPri from "../img/nav/delivery-man.png";
-import deliverySec from "../img/nav/delivery-man (1).png";
-import mealPri from "../img/nav/breakfast (1).png";
-import mealSec from "../img/nav/breakfast.png";
+import nutritionPri from "../../img/nav/plan (1).png";
+import nutritionSec from "../../img/nav/plan.png";
+import nightlifePri from "../../img/nav/whiskey (1).png";
+import nightlifeSec from "../../img/nav/whiskey.png";
+import deliveryPri from "../../img/nav/delivery-man.png";
+import deliverySec from "../../img/nav/delivery-man (1).png";
+import mealPri from "../../img/nav/breakfast (1).png";
+import mealSec from "../../img/nav/breakfast.png";
 
 const Navbar = () => {
   const history = useHistory();

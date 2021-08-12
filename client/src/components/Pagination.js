@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import Pagination from "@material-ui/lab/Pagination";
+import { RestaurantContext } from "../context/RestaurantContextProvider";
 
-const PaginationControlled = ({ page, setPage, total }) => {
+const PaginationControlled = () => {
+  const { page, total, dispatch } = useContext(RestaurantContext);
   let mqSm = window.matchMedia("(max-width: 600px)");
 
   const handleChange = (event, value) => {
-    setPage(value);
+    dispatch({ type: "SET_PAGE", payload: value });
   };
 
   return (
