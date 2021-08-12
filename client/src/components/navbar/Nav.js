@@ -61,6 +61,10 @@ const Nav = ({ location, history }) => {
           /*and simulate a click on the "active" item:*/
           list[currentFocus].click();
           dispatch({ type: "SET_TERM", payload: list[currentFocus].childNodes[0].textContent });
+          setRestaurantSearch("");
+        } else {
+          dispatch({ type: "SET_TERM", payload: e.target.value });
+          setRestaurantSearch("");
         }
       } else if (e.key === "ArrowUp") {
         currentFocus--;

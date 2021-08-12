@@ -40,7 +40,7 @@ const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { restaurants, term, isLoading, isSubLoading, isError } = useContext(RestaurantContext);
+  const { restaurants, term, isLoading, isSubLoading, isError, dispatch } = useContext(RestaurantContext);
   // const [restaurants, setRestaurants] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   // const [isSubLoading, setIsSubLoading] = useState(false);
@@ -60,6 +60,23 @@ const Home = () => {
       bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   };
+
+  if (isSubLoading) {
+    const h4 = document.querySelector("section.best-food-list");
+    console.log(h4.getBoundingClientRect().top);
+    // window.scrollTo(0, 775);
+  }
+
+  // const myScroll = () => {
+  //   console.log(window.pageYOffset);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", myScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", myScroll);
+  //   };
+  // });
 
   const handleClick = (e) => {
     const btnIcon = e.currentTarget.childNodes[1];
@@ -91,6 +108,10 @@ const Home = () => {
     } else if (e.currentTarget.className === "prev") {
       document.querySelector(".grid-con").scrollLeft -= 270;
     }
+  };
+
+  const selectMenu = (e) => {
+    dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
   };
 
   // useEffect(() => {
@@ -165,6 +186,7 @@ const Home = () => {
                   <div
                     className={index > 5 ? "grid-item dep" : "grid-item"}
                     key={index}
+                    onClick={selectMenu}
                     ref={(el) => {
                       mealRef.current[index] = el;
                     }}

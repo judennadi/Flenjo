@@ -11,9 +11,9 @@ const getAllRestaurants = async (req, res) => {
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?term=${term ? term : ""}&location=CA&limit=30&offset=${
-        page * 30
-      }`,
+      `https://api.yelp.com/v3/businesses/search?term=${
+        term ? term : ""
+      }&categories=food,restaurants&location=CA&limit=30&offset=${page * 30}`,
       config
     );
     // const { rows } = await db.query("SELECT * FROM restaurants");
@@ -50,7 +50,7 @@ const searchAutocomplete = async (req, res) => {
     const { data } = await axios.get(`https://api.yelp.com/v3/autocomplete?text=${req.query.text}`, config);
 
     // const { rows } = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
-    res.status(200).json({ terms: [...data.categories, ...data.terms] });
+    res.status(200).json({ terms: [...data.categories, ...data.terms], data });
   } catch (error) {
     console.log(error);
   }

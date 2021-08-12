@@ -8,7 +8,7 @@ const initialState = { isLoading: true, isError: false, restaurants: [], page: 1
 
 const RestaurantContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
-
+  let mql = window.matchMedia("(max-width: 600px)");
   console.log(state);
 
   // useEffect(() => {
@@ -42,6 +42,11 @@ const RestaurantContextProvider = ({ children }) => {
           cancelToken: source.token,
         });
         dispatch({ type: "SET_RESTAURANTS", payload: data.data, total: data.total });
+        if (mql.matches) {
+          window.scrollTo(0, 620);
+        } else {
+          window.scrollTo(0, 775);
+        }
       } catch (error) {
         if (axios.isCancel(error)) {
           return;
@@ -51,7 +56,7 @@ const RestaurantContextProvider = ({ children }) => {
       }
     };
     fetchData();
-  }, [state.page, state.term]);
+  }, [state.page, state.term, mql.matches]);
 
   return <RestaurantContext.Provider value={{ ...state, dispatch }}>{children}</RestaurantContext.Provider>;
 };

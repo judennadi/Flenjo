@@ -15,6 +15,9 @@
 html {
   scroll-behavior: smooth;
 }
+.pri{
+  color: var(--pri)
+}
 *,
 :after,
 :before {
@@ -307,7 +310,7 @@ header nav {
   }
   .autocomplete-con ul li.active {
     /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
+    background-color: var(--pri) !important;
     color: #ffffff;
   }
 
