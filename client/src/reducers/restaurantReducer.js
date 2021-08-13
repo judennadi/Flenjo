@@ -9,7 +9,7 @@ const restaurantReducer = (state, action) => {
       isError: false,
     };
   } else if (action.type === "SET_LOADING") {
-    return { ...state, isLoading: action.payload, isSubLoading: false, isError: false };
+    return { ...state, isLoading: action.payload, isSearch: false, isSubLoading: false, isError: false };
   } else if (action.type === "SET_SUBLOADING") {
     return { ...state, isSubLoading: action.payload, isLoading: false, isError: false };
   } else if (action.type === "SET_ERROR") {
@@ -17,7 +17,9 @@ const restaurantReducer = (state, action) => {
   } else if (action.type === "SET_PAGE") {
     return { ...state, page: action.payload };
   } else if (action.type === "SET_TERM") {
-    return { ...state, term: action.payload };
+    return { ...state, term: action.payload, page: 1, isSearch: true };
+  } else if (action.type === "CLEAR_TERM") {
+    return { ...state, term: action.payload, page: 1, isSearch: false };
   } else {
     return state;
   }

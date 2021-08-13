@@ -7,6 +7,8 @@ const Nav = ({ location, history }) => {
   const { dispatch } = useContext(RestaurantContext);
   const [scroll, setScroll] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState("");
+  const [searchBar, setSearchBar] = useState(false);
+  const [isST, setIsST] = useState(false);
   let mql = window.matchMedia("(max-width: 600px)");
   let prevScrollPos = window.pageYOffset;
 
@@ -76,18 +78,12 @@ const Nav = ({ location, history }) => {
     }
   };
 
-  const handleBlur = () => {
-    if (document.querySelectorAll(".autocomplete-con ul li").length) {
-      document.querySelector(".autocomplete-con ul").classList.add("dep");
-      console.log("blure");
-    }
+  const handleBlur = (e) => {
+    setIsST(false);
   };
 
-  const handleFocus = () => {
-    if (document.querySelectorAll(".autocomplete-con ul li").length) {
-      document.querySelector(".autocomplete-con ul").classList.remove("dep");
-      console.log("focus");
-    }
+  const handleFocus = (e) => {
+    setIsST(true);
   };
 
   const handleSubmit = (e) => {
@@ -107,7 +103,9 @@ const Nav = ({ location, history }) => {
     <>
       <nav>
         <div className="logo">
-          <h2 onClick={() => history.push("/")}>FLENJO</h2>
+          <h2 style={{ letterSpacing: "-1px" }} onClick={() => history.push("/")}>
+            FLENJO
+          </h2>
         </div>
         <div className="nav-auth-sm">
           <Person color="primary" />
@@ -139,7 +137,12 @@ const Nav = ({ location, history }) => {
                 onBlur={handleBlur}
                 onChange={(e) => setRestaurantSearch(e.target.value)}
               />
-              <AutoComplete restaurantSearch={restaurantSearch} setRestaurantSearch={setRestaurantSearch} />
+              <AutoComplete
+                restaurantSearch={restaurantSearch}
+                setRestaurantSearch={setRestaurantSearch}
+                isST={isST}
+                setIsST={setIsST}
+              />
             </form>
           </div>
         </div>
@@ -150,28 +153,94 @@ const Nav = ({ location, history }) => {
       </nav>
       <div
         className="search-sm"
-        style={location.pathname !== "/" || scroll ? { borderBottom: "none", height: "45px" } : null}
+        style={
+          location.pathname !== "/" || scroll
+            ? { borderBottom: "none", height: "45px" }
+            : location.pathname === "/" && searchBar
+            ? { borderBottom: "none", height: "45px" }
+            : null
+        }
       >
         {!scroll ? (
-          <>
-            <div className="location-sm">
-              <div className="input-icon">
-                <LocationOn color="primary" />
-              </div>
-              <p>Enugu, Nigeria</p>
-            </div>
-            <div className="search-icon input-icon">
-              <Search />
-            </div>
-          </>
+          <SearchSm
+            restaurantSearch={restaurantSearch}
+            setRestaurantSearch={setRestaurantSearch}
+            searchBar={searchBar}
+            setSearchBar={setSearchBar}
+            handleKeyUp={handleKeyUp}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+            isST={isST}
+            setIsST={setIsST}
+          />
         ) : (
           <div className="search-bar">
-            <input type="text" placeholder="Search for restaurants, cuisine or a dish" />
+            <input
+              type="text"
+              value={restaurantSearch}
+              placeholder="Search for restaurants, cuisine or a dish"
+              onKeyUp={handleKeyUp}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChange={(e) => setRestaurantSearch(e.target.value)}
+            />
           </div>
         )}
       </div>
     </>
   );
 };
+
+// =============== SearchSm Component ===============
+function SearchSm({
+  restaurantSearch,
+  setRestaurantSearch,
+  searchBar,
+  setSearchBar,
+  handleKeyUp,
+  handleFocus,
+  handleBlur,
+  setIsST,
+  isST,
+}) {
+  const handleClick = (e) => {
+    setSearchBar(true);
+  };
+  return (
+    <>
+      {searchBar ? (
+        <div className="search-bar">
+          <input
+            type="text"
+            value={restaurantSearch}
+            placeholder="Search for restaurants, cuisine or a dish"
+            onKeyUp={handleKeyUp}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onChange={(e) => setRestaurantSearch(e.target.value)}
+          />
+          <AutoComplete
+            restaurantSearch={restaurantSearch}
+            setRestaurantSearch={setRestaurantSearch}
+            isST={isST}
+            setIsST={setIsST}
+          />
+        </div>
+      ) : (
+        <>
+          <div className="location-sm">
+            <div className="input-icon">
+              <LocationOn color="primary" />
+            </div>
+            <p>Enugu, Nigeria</p>
+          </div>
+          <div className="search-icon input-icon" onClick={handleClick}>
+            <Search />
+          </div>
+        </>
+      )}
+    </>
+  );
+}
 
 export default Nav;

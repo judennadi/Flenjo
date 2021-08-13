@@ -40,7 +40,8 @@ const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { restaurants, term, isLoading, isSubLoading, isError, dispatch } = useContext(RestaurantContext);
+  const { restaurants, term, isSearch, isLoading, isSubLoading, isError, dispatch } =
+    useContext(RestaurantContext);
   // const [restaurants, setRestaurants] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
   // const [isSubLoading, setIsSubLoading] = useState(false);
@@ -60,12 +61,6 @@ const Home = () => {
       bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   };
-
-  if (isSubLoading) {
-    const h4 = document.querySelector("section.best-food-list");
-    console.log(h4.getBoundingClientRect().top);
-    // window.scrollTo(0, 775);
-  }
 
   // const myScroll = () => {
   //   console.log(window.pageYOffset);
@@ -178,104 +173,131 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <section className="food-inspire">
-            <div className="food-grid-con">
-              <h4>Inspiration for your first order</h4>
-              <div className="grid-con">
-                {meals.map((meal, index) => (
+          {!isSearch ? (
+            <>
+              <section className="food-inspire">
+                <div className="food-grid-con">
+                  <h4>Inspiration for your first order</h4>
+                  <div className="grid-con">
+                    {meals.map((meal, index) => (
+                      <div
+                        className={index > 5 ? "grid-item dep" : "grid-item"}
+                        key={index}
+                        onClick={selectMenu}
+                        ref={(el) => {
+                          mealRef.current[index] = el;
+                        }}
+                      >
+                        <div>
+                          <img src={meal.img} alt="" />
+                        </div>
+                        <div>
+                          <p>{meal.name}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <button className="prev" onClick={handleSlide}>
+                    <ArrowBackIos />
+                  </button>
+                  <button className="next" onClick={handleSlide}>
+                    <ArrowForwardIos />
+                  </button>
+                  <button className="coll-btn" onClick={handleClick}>
+                    see more
+                    <div className="input-icon">
+                      <ExpandMore />
+                    </div>
+                  </button>
+                </div>
+              </section>
+
+              <section className="brands container">
+                <div className="app-promotion">
+                  <div className="pro-exc" ref={(el) => (promoRef.current[0] = el)}>
+                    <div>
+                      <h4>Unlock exclusive offers</h4>
+                      <p>
+                        Enjoy up to <span style={{ color: "#ed5a6b" }}>50% off</span> on ordering <br /> from
+                        the app
+                      </p>
+                      <button className="app-pro-btn">Use App</button>
+                    </div>
+                    <div>
+                      <img src="" alt="" />
+                    </div>
+                  </div>
+                  <div className="pro-del pro-dep" ref={(el) => (promoRef.current[1] = el)}>
+                    <div>
+                      <h4>Track delivery to your door</h4>
+                      <p>
+                        Live order tracking only on <br /> our app
+                      </p>
+                      <button className="app-pro-btn">Use App</button>
+                    </div>
+                    <div>
+                      <img src={deliverySec} alt="" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="top-brands">
+                  <h4>Top brands in spotlight</h4>
+                  <div>
+                    {brands.map((brand, index) => (
+                      <div key={index}>
+                        <img src={brand.img} alt="" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="best-food-list container">
+                <h4>Best Restaurants within your location</h4>
+                <div className="best-food-con">
+                  {isSubLoading ? (
+                    <div
+                      className="cen-grid"
+                      style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
+                    >
+                      <CircularProgress size="30px" thickness={4} />
+                    </div>
+                  ) : (
+                    restaurants.map((restaurant) => (
+                      <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
+                    ))
+                  )}
+                </div>
+                <div>
+                  <Pagination />
+                </div>
+              </section>
+            </>
+          ) : (
+            <section className="best-food-list container">
+              <h4>
+                {term ? `${term[0].toUpperCase() + term.slice(1)} Restaurants within your location` : ""}
+              </h4>
+              <div className="best-food-con">
+                {isSubLoading ? (
                   <div
-                    className={index > 5 ? "grid-item dep" : "grid-item"}
-                    key={index}
-                    onClick={selectMenu}
-                    ref={(el) => {
-                      mealRef.current[index] = el;
-                    }}
+                    className="cen-grid"
+                    style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
                   >
-                    <div>
-                      <img src={meal.img} alt="" />
-                    </div>
-                    <div>
-                      <p>{meal.name}</p>
-                    </div>
+                    <CircularProgress size="30px" thickness={4} />
                   </div>
-                ))}
+                ) : (
+                  restaurants.map((restaurant) => (
+                    <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
+                  ))
+                )}
               </div>
-              <button className="prev" onClick={handleSlide}>
-                <ArrowBackIos />
-              </button>
-              <button className="next" onClick={handleSlide}>
-                <ArrowForwardIos />
-              </button>
-              <button className="coll-btn" onClick={handleClick}>
-                see more
-                <div className="input-icon">
-                  <ExpandMore />
-                </div>
-              </button>
-            </div>
-          </section>
-
-          <section className="brands container">
-            <div className="app-promotion">
-              <div className="pro-exc" ref={(el) => (promoRef.current[0] = el)}>
-                <div>
-                  <h4>Unlock exclusive offers</h4>
-                  <p>
-                    Enjoy up to <span style={{ color: "#ed5a6b" }}>50% off</span> on ordering <br /> from the
-                    app
-                  </p>
-                  <button className="app-pro-btn">Use App</button>
-                </div>
-                <div>
-                  <img src="" alt="" />
-                </div>
-              </div>
-              <div className="pro-del pro-dep" ref={(el) => (promoRef.current[1] = el)}>
-                <div>
-                  <h4>Track delivery to your door</h4>
-                  <p>
-                    Live order tracking only on <br /> our app
-                  </p>
-                  <button className="app-pro-btn">Use App</button>
-                </div>
-                <div>
-                  <img src={deliverySec} alt="" />
-                </div>
-              </div>
-            </div>
-
-            <div className="top-brands">
-              <h4>Top brands in spotlight</h4>
               <div>
-                {brands.map((brand, index) => (
-                  <div key={index}>
-                    <img src={brand.img} alt="" />
-                  </div>
-                ))}
+                <Pagination />
               </div>
-            </div>
-          </section>
-
-          <section className="best-food-list container">
-            <h4>{term ? `Best results for: ${term}` : "Best Food within your location"}</h4>
-            <div className="best-food-con">
-              {isSubLoading ? (
-                <div
-                  className="cen-grid"
-                  style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
-                >
-                  <CircularProgress size="30px" thickness={4} />
-                </div>
-              ) : (
-                restaurants.map((restaurant) => (
-                  <RestaurantCard key={restaurant.id} restaurant={restaurant} meals={meals} />
-                ))
-              )}
-            </div>
-            <div>
-              <Pagination />
-            </div>
-          </section>
+            </section>
+          )}
         </>
       )}
     </div>

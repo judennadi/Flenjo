@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
-import { Rating } from "@material-ui/lab";
 import axios from "axios";
 import { StarRating, AddStarRating } from "./accessories/StarRating";
 const Map = React.lazy(() => import("./accessories/Map"));
@@ -11,10 +10,6 @@ const RestaurantDetails = ({ match, history }) => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(restaurant);
-
-  // useEffect(() => {
-  // });
   useEffect(() => {
     const fetchData = async () => {
       const source = axios.CancelToken.source();
@@ -88,7 +83,7 @@ const RestaurantDetails = ({ match, history }) => {
               </div>
               <div>
                 <div>
-                  <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
+                  <StarRating value={restaurant.rating} />
                   <p>{restaurant.rating}</p>
                 </div>
                 <p>{restaurant.review_count} Delivery Reviews</p>

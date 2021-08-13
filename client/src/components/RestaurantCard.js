@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { Rating } from "@material-ui/lab";
+import { StarRating } from "./accessories/StarRating";
 
 const RestaurantCard = ({ restaurant, meals }) => {
   const history = useHistory();
@@ -16,7 +16,7 @@ const RestaurantCard = ({ restaurant, meals }) => {
         <div>
           <p>{restaurant.name}</p>
           <div className="rating">
-            <Rating value={restaurant.rating} readOnly named={restaurant.name} precision={0.5} />
+            <StarRating value={restaurant.rating} />
             <p>{restaurant.rating}</p>
             <p>({restaurant.review_count} Delivery Reviews)</p>
           </div>

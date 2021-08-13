@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
@@ -12,6 +12,7 @@ import ResetPassword from "./components/auth/ResetPassword";
 import Footer from "./components/Footer";
 import RestaurantDetails from "./components/RestaurantDetails";
 import FoodDetails from "./components/FoodDetails";
+import RestaurantSearch from "./components/RestaurantSearch";
 import NotFound from "./components/NotFound";
 
 const theme = createMuiTheme({
@@ -43,16 +44,16 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/dine-out" component={DiningOut} />
-            <Route path="/404" component={NotFound} />
             <Route path="/nightlife" component={Nightlife} />
             <Route path="/nutrition" component={Nutrition} />
+            <Route path="/restaurant-search" component={RestaurantSearch} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/forgotpassword" component={ForgotPassword} />
             <Route path="/resetpassword/:id" component={ResetPassword} />
             <Route path="/restaurant/:id" component={RestaurantDetails} />
             <Route path="/food/:id" component={FoodDetails} />
-            <Route path="*" render={() => <Redirect to="/" />} />
+            <Route path="*" component={NotFound} />
           </Switch>
           <Footer />
         </div>

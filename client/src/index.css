@@ -15,8 +15,8 @@
 html {
   scroll-behavior: smooth;
 }
-.pri{
-  color: var(--pri)
+.pri {
+  color: var(--pri);
 }
 *,
 :after,
@@ -29,7 +29,9 @@ a {
   text-decoration: none;
   color: inherit;
 }
-::before ul {
+ul,
+::before ul,
+::after ul {
   list-style: none;
 }
 h4 {
@@ -114,6 +116,7 @@ header {
   left: 0;
   right: 0;
   box-shadow: var(--shadow);
+  z-index: 999;
 }
 .sticky2 + div {
   height: 95px;
@@ -153,6 +156,7 @@ header nav {
 .search-sm .search-bar {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 .search-bar input {
   padding: 0 15px;
@@ -189,6 +193,33 @@ header nav {
   margin-left: auto;
   border-radius: 50%;
   background: var(--sec);
+}
+
+.autocomplete-con {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 5px 10px 0;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 100;
+  background-color: #fff;
+}
+.autocomplete-con ul {
+  width: 100%;
+  padding: 0;
+}
+.autocomplete-con ul li {
+  font-size: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-con ul li:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
 }
 
 .nav-menu {
@@ -261,7 +292,7 @@ header nav {
   margin-right: 10px;
   padding: 0 8px;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 5px;
   border: 1px solid var(--hr);
   color: var(--text2);
   box-shadow: 0px 1px 2px var(--shadowC2);
@@ -455,7 +486,9 @@ header nav {
     height: 100%;
   }
   .filter-con ul li {
-    height: 35px;
+    height: 38px;
+    font-size: 15px;
+    border-radius: 8px;
     /* padding: 7px; */
     justify-content: center;
     align-content: center;
@@ -630,50 +663,50 @@ section.best-food-list h4 {
   margin-bottom: 10px;
   cursor: pointer;
 }
-.best-food-con .best-food div:nth-child(1) {
-  border-radius: 10px;
+.best-food-con .best-food > div:nth-child(1) {
+  border-radius: 14px;
   overflow: hidden;
   width: 100%;
   height: 190px;
   margin-bottom: 5px;
   border: 1px solid var(--shadowC2);
 }
-.best-food-con .best-food div:nth-child(1) img {
+.best-food-con .best-food > div:nth-child(1) img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.best-food-con .best-food div:nth-child(2) {
+.best-food-con .best-food > div:nth-child(2) {
   width: 100%;
   background: transparent;
   padding-bottom: 4px;
 }
-.best-food-con .best-food div:nth-child(2) > p {
+.best-food-con .best-food > div:nth-child(2) > p {
   font-size: 19px;
   font-weight: 600;
 }
-.best-food-con .best-food div:nth-child(2) .rating {
+.best-food-con .best-food > div:nth-child(2) .rating {
   margin: 5px 0 0;
   display: flex;
   align-items: center;
 }
-.best-food-con .best-food div:nth-child(2) .rating p {
+.best-food-con .best-food > div:nth-child(2) .rating p {
   font-size: 15px;
   font-weight: 500;
   margin-left: 5px;
 }
-.best-food-con .best-food div:nth-child(2) .rating p:nth-child(2) {
+.best-food-con .best-food > div:nth-child(2) .rating p:nth-child(2) {
   font-size: 16px;
 }
-.best-food-con .best-food div:nth-child(2) .rating p:last-child {
+.best-food-con .best-food > div:nth-child(2) .rating p:last-child {
   color: var(--text2);
 }
-.best-food-con .best-food div:nth-child(2) .categories {
+.best-food-con .best-food > div:nth-child(2) .categories {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-.best-food-con .best-food div:nth-child(2) .categories p {
+.best-food-con .best-food > div:nth-child(2) .categories p {
   margin-right: 5px;
   color: var(--text2);
   font-weight: 500;
@@ -796,12 +829,12 @@ section.best-food-list h4 {
   .best-food-con .best-food {
     margin-bottom: 20px;
   }
-  .best-food-con .best-food div:nth-child(1) {
+  .best-food-con .best-food > div:nth-child(1) {
     height: 220px;
   }
 }
 
-/* ========================= Home ========================= */
+/* ========================= Home end ========================= */
 
 /* ==================== Dining Out and Nightlife ===================== */
 
@@ -971,7 +1004,7 @@ section.best-food-list h4 {
     height: 220px;
   }
 }
-/* ======================= Dining Out and Nightlife ======================= */
+/* ======================= Dining Out and Nightlife end ======================= */
 
 /* ======================== Restaurant Details ======================== */
 
@@ -1252,6 +1285,35 @@ section.best-food-list h4 {
     font-size: 18px;
   }
 }
+/* ================= Restaurant Details end================= */
+
+/* ================= Restaurant Search ================= */
+.search-result-con {
+  width: 100%;
+  padding: 10px 15px;
+}
+.search-result-con .search-result {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 10px;
+}
+
+@media screen and (min-width: 600px) {
+  .search-result-con {
+    padding: 0;
+  }
+  .search-result-con .search-result {
+    padding: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .search-result .restaurant {
+    border: 1px solid var(--text2);
+  }
+}
+
+/* ================= Restaurant Details end================= */
 
 /* ======================= Footer ======================= */
 
@@ -1272,14 +1334,8 @@ section.best-food-list h4 {
   }
 }
 
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
-/* =============== 404 Error =============== */
+/* ======================= Footer end ======================= */
+
 /* =============== 404 Error =============== */
 /* =============== 404 Error =============== */
 /* =============== 404 Error =============== */

@@ -4,7 +4,16 @@ import axios from "axios";
 
 export const RestaurantContext = createContext();
 
-const initialState = { isLoading: true, isError: false, restaurants: [], page: 1, total: null, term: "" };
+const initialState = {
+  isLoading: true,
+  isSubLoading: false,
+  isSearch: false,
+  isError: false,
+  restaurants: [],
+  page: 1,
+  total: null,
+  term: "",
+};
 
 const RestaurantContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
@@ -32,20 +41,24 @@ const RestaurantContextProvider = ({ children }) => {
       if (state.page <= 1 && !state.term) {
         dispatch({ type: "SET_LOADING", payload: true });
       } else if (state.term) {
-        dispatch({ type: "SET_SUBLOADING", payload: true });
+        dispatch({ type: "SET_SEARCH_LOADING", payload: true });
       } else {
         dispatch({ type: "SET_SUBLOADING", payload: true });
       }
 
       try {
-        const { data } = await axios.get(`/api/restaurants?page=${state.page - 1}&term=${state.term}`, {
+        const { data } = await axios.get(`/api/restaurants?term=${state.term}&page=${state.page - 1}`, {
           cancelToken: source.token,
         });
         dispatch({ type: "SET_RESTAURANTS", payload: data.data, total: data.total });
-        if (mql.matches) {
-          window.scrollTo(0, 620);
-        } else {
-          window.scrollTo(0, 775);
+        if (!state.term && state.page > 1) {
+          if (mql.matches) {
+            window.scrollTo(0, 620);
+          } else {
+            window.scrollTo(0, 775);
+          }
+        } else if (state.term) {
+          window.scrollTo(0, 0);
         }
       } catch (error) {
         if (axios.isCancel(error)) {

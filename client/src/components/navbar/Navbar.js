@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { SwapVert, FilterList } from "@material-ui/icons";
+import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
 import Nav from "./Nav";
 import nutritionPri from "../../img/nav/plan (1).png";
+import { RestaurantContext } from "../../context/RestaurantContextProvider";
 import nutritionSec from "../../img/nav/plan.png";
 import nightlifePri from "../../img/nav/whiskey (1).png";
 import nightlifeSec from "../../img/nav/whiskey.png";
@@ -12,6 +13,7 @@ import mealPri from "../../img/nav/breakfast (1).png";
 import mealSec from "../../img/nav/breakfast.png";
 
 const Navbar = () => {
+  const { term, isSearch, dispatch } = useContext(RestaurantContext);
   const history = useHistory();
   const location = useLocation();
   const [imgSwap, setImgSwap] = useState("Delivery");
@@ -44,6 +46,11 @@ const Navbar = () => {
     document.querySelector(".nav-menu .active").classList.remove("active");
     li.classList.add("active");
     history.push(path);
+  };
+
+  const clearTerm = (e) => {
+    dispatch({ type: "CLEAR_TERM", payload: "" });
+    history.push("/");
   };
 
   useEffect(() => {
@@ -121,19 +128,37 @@ const Navbar = () => {
             <div>
               <ul>
                 <li>
-                  <div>
-                    <FilterList />
-                  </div>
+                  {isSearch ? (
+                    <div
+                      style={{
+                        background: "#ed5a6b",
+                        color: "#fff",
+                        marginRight: "4px",
+                        padding: "0 5px",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      1
+                    </div>
+                  ) : (
+                    <div>
+                      <FilterList />
+                    </div>
+                  )}
                   <p>Filters</p>
                 </li>
+                {isSearch ? (
+                  <li style={{ background: "#ed5a6b", color: "#fff" }} onClick={clearTerm}>
+                    <p>{term}</p>
+                    <div className="cen-grid" style={{ marginLeft: "4px" }}>
+                      <Cancel style={{ color: "#ddd" }} fontSize="small" />
+                    </div>
+                  </li>
+                ) : (
+                  ""
+                )}
                 <li>
                   <p>Rating: 4.0+</p>
-                </li>
-                <li>
-                  <p>Safe and Hygienic</p>
-                </li>
-                <li>
-                  <p>Pure Veg</p>
                 </li>
                 <li>
                   <div>

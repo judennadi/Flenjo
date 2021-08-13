@@ -1,4 +1,4 @@
-import { Star, StarHalf } from "@material-ui/icons";
+import { Star, StarHalf, StarBorder } from "@material-ui/icons";
 import { useState } from "react";
 
 const labels = {
@@ -9,27 +9,27 @@ const labels = {
   5: "Excellent",
 };
 
-// Display rating
-export const StarRating = ({ value }) => {
+// ====================== Display rating ======================
+export const StarRating = ({ value, size }) => {
   // let value = 3.5;
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= value) {
       stars.push(
         <li key={i}>
-          <Star style={{ color: "orange" }} />
+          <Star style={{ color: "orange" }} fontSize={size} />
         </li>
       );
     } else if (!Number.isInteger(value) && i === Math.ceil(value)) {
       stars.push(
         <li key={i}>
-          <StarHalf style={{ color: "orange" }} />
+          <StarHalf style={{ color: "orange" }} fontSize={size} />
         </li>
       );
     } else {
       stars.push(
         <li key={i}>
-          <Star style={{ color: "rgba(0, 0, 0, 0.3)" }} />
+          <StarBorder style={{ color: "orange" }} fontSize={size} />
         </li>
       );
     }
@@ -37,12 +37,16 @@ export const StarRating = ({ value }) => {
 
   return (
     <div style={{ display: "inline-block", width: "auto" }}>
-      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "2px 0 0" }}>{stars}</ul>
+      <ul
+        style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "2px 0 0", listStyle: "none" }}
+      >
+        {stars}
+      </ul>
     </div>
   );
 };
 
-// Add rating
+// ====================== Add rating ======================
 export const AddStarRating = ({ size }) => {
   const [value, setValue] = useState(0);
   const stars = [];
@@ -56,7 +60,7 @@ export const AddStarRating = ({ size }) => {
     } else {
       stars.push(
         <li key={i} style={{ cursor: "pointer" }} onClick={() => setValue(i)}>
-          <Star style={{ color: "rgba(0, 0, 0, 0.3)" }} fontSize={size} />
+          <StarBorder style={{ color: "orange" }} fontSize={size} />
         </li>
       );
     }
@@ -64,7 +68,16 @@ export const AddStarRating = ({ size }) => {
 
   return (
     <div style={{ display: "inline-block", width: "auto" }}>
-      <ul style={{ display: "inline-flex", gap: "5px", width: "auto", padding: "0", alignItems: "center" }}>
+      <ul
+        style={{
+          display: "inline-flex",
+          gap: "5px",
+          width: "auto",
+          padding: "0",
+          alignItems: "center",
+          listStyle: "none",
+        }}
+      >
         {stars}
         <li>{value !== null && <p style={{ fontWeight: "500" }}>{labels[value]}</p>}</li>
       </ul>

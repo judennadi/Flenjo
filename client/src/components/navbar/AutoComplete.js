@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
 
-const AutoComplete = ({ restaurantSearch, setRestaurantSearch }) => {
+const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) => {
   const { dispatch } = useContext(RestaurantContext);
   const history = useHistory();
   const location = useLocation();
@@ -12,8 +12,18 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch }) => {
   const handleClick = (e) => {
     dispatch({ type: "SET_TERM", payload: e.currentTarget.innerText });
     setSearchTerms([]);
+    setRestaurantSearch("");
     if (location.pathname !== "/") history.push("/");
   };
+
+  // if (searchTerms.length) {
+  //   setIsST(true);
+  // }
+  useEffect(() => {
+    if (isST === false) {
+      setSearchTerms([]);
+    }
+  }, [isST]);
 
   useEffect(() => {
     if (restaurantSearch.length >= 3) {
