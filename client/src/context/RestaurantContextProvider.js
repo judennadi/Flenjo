@@ -18,7 +18,6 @@ const initialState = {
 const RestaurantContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
   let mql = window.matchMedia("(max-width: 600px)");
-  console.log(state);
 
   // useEffect(() => {
   //   const fetchData = async () => {

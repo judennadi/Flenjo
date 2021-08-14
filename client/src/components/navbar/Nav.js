@@ -8,7 +8,7 @@ const Nav = ({ location, history }) => {
   const [scroll, setScroll] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState("");
   const [searchBar, setSearchBar] = useState(false);
-  const [isST, setIsST] = useState(false);
+  const [isST, setIsST] = useState(true);
   let mql = window.matchMedia("(max-width: 600px)");
   let prevScrollPos = window.pageYOffset;
 
@@ -63,10 +63,12 @@ const Nav = ({ location, history }) => {
           /*and simulate a click on the "active" item:*/
           list[currentFocus].click();
           dispatch({ type: "SET_TERM", payload: list[currentFocus].childNodes[0].textContent });
-          setRestaurantSearch("");
+          setIsST(false);
+          e.currentTarget.blur();
         } else {
           dispatch({ type: "SET_TERM", payload: e.target.value });
-          setRestaurantSearch("");
+          setIsST(false);
+          e.currentTarget.blur();
         }
       } else if (e.key === "ArrowUp") {
         currentFocus--;

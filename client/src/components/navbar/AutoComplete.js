@@ -10,9 +10,8 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   const [searchTerms, setSearchTerms] = useState([]);
 
   const handleClick = (e) => {
-    dispatch({ type: "SET_TERM", payload: e.currentTarget.innerText });
+    dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[0].textContent });
     setSearchTerms([]);
-    setRestaurantSearch("");
     if (location.pathname !== "/") history.push("/");
   };
 
@@ -20,8 +19,11 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   //   setIsST(true);
   // }
   useEffect(() => {
+    console.log(isST);
     if (isST === false) {
-      setSearchTerms([]);
+      document.querySelector(".autocomplete-con ul").style.display = "none";
+    } else {
+      document.querySelector(".autocomplete-con ul").style.display = "block";
     }
   }, [isST]);
 
@@ -38,6 +40,8 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
       };
 
       fetchData();
+    } else if (!restaurantSearch) {
+      setSearchTerms([]);
     } else {
       setSearchTerms([]);
     }
