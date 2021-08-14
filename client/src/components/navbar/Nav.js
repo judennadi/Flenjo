@@ -186,6 +186,12 @@ const Nav = ({ location, history }) => {
               onBlur={handleBlur}
               onChange={(e) => setRestaurantSearch(e.target.value)}
             />
+            <AutoComplete
+              restaurantSearch={restaurantSearch}
+              setRestaurantSearch={setRestaurantSearch}
+              isST={isST}
+              setIsST={setIsST}
+            />
           </div>
         )}
       </div>
@@ -216,9 +222,9 @@ function SearchSm({
             type="text"
             value={restaurantSearch}
             placeholder="Search for restaurants, cuisine or a dish"
-            onKeyUp={handleKeyUp}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
+            onKeyUp={(e) => handleKeyUp(e)}
+            onFocus={(e) => handleFocus(e)}
+            onBlur={(e) => handleBlur(e)}
             onChange={(e) => setRestaurantSearch(e.target.value)}
           />
           <AutoComplete

@@ -21,9 +21,9 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   useEffect(() => {
     console.log(isST);
     if (isST === false) {
-      document.querySelector(".autocomplete-con ul").style.display = "none";
+      document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "none"));
     } else {
-      document.querySelector(".autocomplete-con ul").style.display = "block";
+      document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "block"));
     }
   }, [isST]);
 

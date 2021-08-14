@@ -18,6 +18,7 @@ const initialState = {
 const RestaurantContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(restaurantReducer, initialState);
   let mql = window.matchMedia("(max-width: 600px)");
+  console.log(state.term);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -41,6 +42,8 @@ const RestaurantContextProvider = ({ children }) => {
         dispatch({ type: "SET_LOADING", payload: true });
       } else if (state.term) {
         dispatch({ type: "SET_SEARCH_LOADING", payload: true });
+      } else if (state.isSearch) {
+        dispatch({ type: "SET_SUBLOADING", payload: true });
       } else {
         dispatch({ type: "SET_SUBLOADING", payload: true });
       }
@@ -68,7 +71,7 @@ const RestaurantContextProvider = ({ children }) => {
       }
     };
     fetchData();
-  }, [state.page, state.term, mql.matches]);
+  }, [state.page, state.term, state.isSearch, mql.matches]);
 
   return <RestaurantContext.Provider value={{ ...state, dispatch }}>{children}</RestaurantContext.Provider>;
 };
