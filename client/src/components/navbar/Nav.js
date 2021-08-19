@@ -5,6 +5,7 @@ import AutoComplete from "./AutoComplete";
 
 const Nav = ({ location, history }) => {
   const { dispatch } = useContext(RestaurantContext);
+  const [userLoc, setUserLoc] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState("");
   const [searchBar, setSearchBar] = useState(false);
@@ -92,7 +93,12 @@ const Nav = ({ location, history }) => {
     e.preventDefault();
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    fetch("http://ip-api.com/json", { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => setUserLoc(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", myScroll);
@@ -117,7 +123,12 @@ const Nav = ({ location, history }) => {
             <div className="input-icon">
               <LocationOn color="primary" />
             </div>
-            <input type="text" />
+            <input
+              type="text"
+              defaultValue={userLoc && `${userLoc.regionName}, ${userLoc.country}`}
+              disabled
+              style={{ background: "#fff" }}
+            />
           </div>
           <hr />
           <div className="input">
@@ -157,9 +168,9 @@ const Nav = ({ location, history }) => {
         className="search-sm"
         style={
           location.pathname !== "/" || scroll
-            ? { borderBottom: "none", height: "45px" }
+            ? { borderBottom: "none", height: "45px", transition: "0.5s" }
             : location.pathname === "/" && searchBar
-            ? { borderBottom: "none", height: "45px" }
+            ? { borderBottom: "none", height: "45px", transition: "0.5s" }
             : null
         }
       >
@@ -174,6 +185,7 @@ const Nav = ({ location, history }) => {
             handleBlur={handleBlur}
             isST={isST}
             setIsST={setIsST}
+            userLoc={userLoc}
           />
         ) : (
           <div className="search-bar">
@@ -210,6 +222,7 @@ function SearchSm({
   handleBlur,
   setIsST,
   isST,
+  userLoc,
 }) {
   const handleClick = (e) => {
     setSearchBar(true);
@@ -240,7 +253,7 @@ function SearchSm({
             <div className="input-icon">
               <LocationOn color="primary" />
             </div>
-            <p>Enugu, Nigeria</p>
+            <p>{userLoc && `${userLoc.regionName}, ${userLoc.country}`}</p>
           </div>
           <div className="search-icon input-icon" onClick={handleClick}>
             <Search />

@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
 import { RestaurantContext } from "../context/RestaurantContextProvider";
 import beef from "../img/foods/beef.jpg";
@@ -109,57 +109,19 @@ const Home = () => {
     dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (page <= 1) {
-  //       setIsLoading(true);
-  //       setIsSubLoading(false);
-  //     } else {
-  //       setIsLoading(false);
-  //       setIsSubLoading(true);
-  //     }
-  //     setIsError(false);
+  useEffect(() => {
+    // navigator.geolocation.getCurrentPosition(success);
+    // function success(position) {
+    //   console.log(position);
+    //   let lat = position.coords.latitude;
+    //   let lng = position.coords.longitude;
+    //   console.log(lat, lng);
+    //   // setUserGeoPos({ lat, lng });
+    // }
+  }, []);
 
-  //     try {
-  //       const { data } = await axios.get(`/api/restaurants?page=${page - 1}`);
-  //       setRestaurants(data.data);
-  //       setTotal(data.total);
-  //       setIsLoading(false);
-  //       setIsSubLoading(false);
-  //     } catch (error) {
-  //       setIsLoading(false);
-  //       setIsError(true);
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [page]);
-
-  // useEffect(() => {
-  //   document.documentElement.scrollTop = 775;
-  // }, [page]);
-
-  // useEffect(() => {
-  //   // navigator.geolocation.getCurrentPosition(success);
-
-  //   // function success(position) {
-  //   //   console.log(position);
-
-  //   //   let lat = position.coords.latitude;
-  //   //   let lng = position.coords.longitude;
-
-  //   //   setUserGeoPos({ lat, lng });
-  //   // }
-  //   const fetchData = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/restaurants`);
-  //       setRestaurants(data.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  // api key
+  // AIzaSyBpOkv8EmT8DTL1wnu7PAa7Xt-mRPe1gwQ
 
   return (
     <div className="container">

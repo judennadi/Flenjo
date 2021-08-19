@@ -167,10 +167,10 @@ const Navbar = () => {
   );
 };
 
+// ================ Filter Component ================
 function Filters({ history }) {
   const { term, isSearch, dispatch } = useContext(RestaurantContext);
   const [filtNo, setFiltNo] = useState(0);
-  console.log(filtNo);
 
   const clearTerm = (e) => {
     dispatch({ type: "CLEAR_TERM", payload: "" });
