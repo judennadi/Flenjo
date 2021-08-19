@@ -10,16 +10,13 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   const [searchTerms, setSearchTerms] = useState([]);
 
   const handleClick = (e) => {
+    console.log(e.currentTarget.childNodes[0].textContent);
     dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[0].textContent });
     setSearchTerms([]);
     if (location.pathname !== "/") history.push("/");
   };
 
-  // if (searchTerms.length) {
-  //   setIsST(true);
-  // }
   useEffect(() => {
-    console.log(isST);
     if (isST === false) {
       document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "none"));
     } else {
@@ -30,7 +27,6 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   useEffect(() => {
     if (restaurantSearch.length >= 3) {
       const fetchData = async () => {
-        console.log("fetch called");
         try {
           const { data } = await axios.get(`/api/restaurants/search/autocomplete?text=${restaurantSearch}`);
           setSearchTerms(data.terms);

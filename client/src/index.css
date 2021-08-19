@@ -90,6 +90,14 @@ body {
 .dep {
   display: none;
 }
+.add-pri {
+  background: #ed5a6b;
+  color: #fff !important;
+}
+.add-pri:hover {
+  background: #d84a5b !important;
+  color: #fff;
+}
 
 /* ================= Navbar =================== */
 

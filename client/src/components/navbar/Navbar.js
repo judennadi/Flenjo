@@ -13,7 +13,6 @@ import mealPri from "../../img/nav/breakfast (1).png";
 import mealSec from "../../img/nav/breakfast.png";
 
 const Navbar = () => {
-  const { term, isSearch, dispatch } = useContext(RestaurantContext);
   const history = useHistory();
   const location = useLocation();
   const [imgSwap, setImgSwap] = useState("Delivery");
@@ -46,11 +45,6 @@ const Navbar = () => {
     document.querySelector(".nav-menu .active").classList.remove("active");
     li.classList.add("active");
     history.push(path);
-  };
-
-  const clearTerm = (e) => {
-    dispatch({ type: "CLEAR_TERM", payload: "" });
-    history.push("/");
   };
 
   useEffect(() => {
@@ -125,52 +119,7 @@ const Navbar = () => {
           <hr className="nav-menu-hr" />
 
           <div className="filter-con">
-            <div>
-              <ul>
-                <li>
-                  {isSearch ? (
-                    <div
-                      style={{
-                        background: "#ed5a6b",
-                        color: "#fff",
-                        marginRight: "4px",
-                        padding: "0 5px",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      1
-                    </div>
-                  ) : (
-                    <div>
-                      <FilterList />
-                    </div>
-                  )}
-                  <p>Filters</p>
-                </li>
-                {isSearch ? (
-                  <li style={{ background: "#ed5a6b", color: "#fff" }} onClick={clearTerm}>
-                    <p>{term}</p>
-                    <div className="cen-grid" style={{ marginLeft: "4px" }}>
-                      <Cancel style={{ color: "#ddd" }} fontSize="small" />
-                    </div>
-                  </li>
-                ) : (
-                  ""
-                )}
-                <li>
-                  <p>Rating: 4.0+</p>
-                </li>
-                <li>
-                  <div>
-                    <SwapVert />
-                  </div>
-                  <p>Delivery Time</p>
-                </li>
-                <li>
-                  <p>Great Offers</p>
-                </li>
-              </ul>
-            </div>
+            <Filters history={history} />
           </div>
           <div className="fil-scroll-backup"></div>
         </header>
@@ -217,5 +166,98 @@ const Navbar = () => {
     </div>
   );
 };
+
+function Filters({ history }) {
+  const { term, isSearch, dispatch } = useContext(RestaurantContext);
+  const [filtNo, setFiltNo] = useState(0);
+  console.log(filtNo);
+
+  const clearTerm = (e) => {
+    dispatch({ type: "CLEAR_TERM", payload: "" });
+    if (filtNo >= 1) {
+      setFiltNo(filtNo - 1);
+    } else {
+      setFiltNo(0);
+    }
+    history.push("/");
+  };
+
+  const handleRating = (e) => {
+    e.currentTarget.classList.toggle("add-pri");
+    if (e.currentTarget.classList.contains("add-pri")) {
+      dispatch({ type: "SET_RATING", payload: 4 });
+      setFiltNo(filtNo + 1);
+    } else {
+      dispatch({ type: "CLEAR_RATING" });
+      if (filtNo >= 1) {
+        setFiltNo(filtNo - 1);
+      } else {
+        setFiltNo(0);
+      }
+    }
+  };
+  return (
+    <div>
+      <ul>
+        <li>
+          {isSearch ? (
+            <div
+              style={{
+                background: "#ed5a6b",
+                color: "#fff",
+                marginRight: "4px",
+                padding: "0 5px",
+                borderRadius: "3px",
+              }}
+            >
+              {filtNo + 1}
+            </div>
+          ) : (
+            <div>
+              {filtNo ? (
+                <div
+                  style={{
+                    background: "#ed5a6b",
+                    color: "#fff",
+                    marginRight: "4px",
+                    padding: "0 5px",
+                    borderRadius: "3px",
+                  }}
+                >
+                  {filtNo}
+                </div>
+              ) : (
+                <FilterList />
+              )}
+            </div>
+          )}
+          <p>Filters</p>
+        </li>
+        {isSearch ? (
+          <li style={{ background: "#ed5a6b", color: "#fff" }} onClick={clearTerm}>
+            <p>{term}</p>
+            <div className="cen-grid" style={{ marginLeft: "4px" }}>
+              <Cancel style={{ color: "#ddd" }} fontSize="small" />
+            </div>
+          </li>
+        ) : (
+          ""
+        )}
+        <li onClick={handleRating}>
+          <p>Rating: 4.0+</p>
+        </li>
+        <li>
+          <div>
+            <SwapVert />
+          </div>
+          <p>Delivery Time</p>
+        </li>
+        <li>
+          <p>Great Offers</p>
+        </li>
+      </ul>
+    </div>
+  );
+}
 
 export default Navbar;

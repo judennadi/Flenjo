@@ -3,7 +3,7 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllRestaurants = async (req, res) => {
-  const { page, term } = req.query;
+  const { page, term, rating } = req.query;
   // console.log(req.query.term);
   const token = process.env.YELP_API_KEY;
   const config = {
@@ -17,7 +17,12 @@ const getAllRestaurants = async (req, res) => {
       config
     );
     // const { rows } = await db.query("SELECT * FROM restaurants");
-    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
+    if (rating) {
+      let newBusinesses = data.businesses.filter((restaurant) => restaurant.rating >= parseFloat(rating));
+      res.status(200).json({ data: newBusinesses, total: data.total > 1000 ? 1000 : data.total });
+    } else {
+      res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
     console.log(error);
