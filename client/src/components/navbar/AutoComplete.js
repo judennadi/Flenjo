@@ -10,7 +10,7 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
   const [searchTerms, setSearchTerms] = useState([]);
 
   const handleClick = (e) => {
-    console.log(e.currentTarget.childNodes[0].textContent);
+    console.log("auto");
     dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[0].textContent });
     setSearchTerms([]);
     if (location.pathname !== "/") history.push("/");
@@ -18,7 +18,9 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
 
   useEffect(() => {
     if (isST === false) {
-      document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "none"));
+      setTimeout(() => {
+        document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "none"));
+      }, 1000);
     } else {
       document.querySelectorAll(".autocomplete-con ul").forEach((ul) => (ul.style.display = "block"));
     }

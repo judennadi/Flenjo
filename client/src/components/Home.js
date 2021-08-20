@@ -238,9 +238,7 @@ const Home = () => {
             </>
           ) : (
             <section className="best-food-list container">
-              <h4>
-                {term ? `${term[0].toUpperCase() + term.slice(1)} Restaurants within your location` : ""}
-              </h4>
+              <h4>{term ? `${term[0].toUpperCase() + term.slice(1)} Restaurants close to you` : ""}</h4>
               <div className="best-food-con">
                 {isSubLoading ? (
                   <div
