@@ -84,7 +84,7 @@ const Nav = ({ location, history }) => {
   const handleBlur = (e) => {
     setIsST(false);
   };
-
+ 
   const handleFocus = (e) => {
     setIsST(true);
   };
@@ -94,7 +94,7 @@ const Nav = ({ location, history }) => {
   };
 
   useEffect(() => {
-    fetch("http://ip-api.com/json", { method: "GET" })
+    fetch("https://json.geoiplookup.io", { method: "GET" })
       .then((res) => res.json())
       .then((data) => setUserLoc(data))
       .catch((err) => console.log(err));
@@ -125,7 +125,7 @@ const Nav = ({ location, history }) => {
             </div>
             <input
               type="text"
-              defaultValue={userLoc && `${userLoc.regionName}, ${userLoc.country}`}
+              defaultValue={userLoc && `${userLoc.region}, ${userLoc.country_name}`}
               disabled
               style={{ background: "#fff" }}
             />
