@@ -21,7 +21,7 @@ const Map = (props) => {
       onScriptLoad();
     } else {
       let script = document.createElement("script");
-      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyD4JMhZ3Ppj23nTDI8c5Gk0BNdVzXhIykI";
+      script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAcZIPxaBDt0PTKBe4nzJSl7uhp_bFSThc";
       document.body.appendChild(script);
 
       script.addEventListener("load", (e) => {

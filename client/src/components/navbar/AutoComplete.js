@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
+import { locations } from "../../locations";
 
 const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) => {
   const { dispatch } = useContext(RestaurantContext);
@@ -57,5 +58,26 @@ const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) 
     </div>
   );
 };
+
+export const LocationAutoComplete = () => {
+  const handleClick = (e) => {};
+
+  return (
+    <div className="loc-autocomplete-con">
+      <ul style={{ listStyle: "none" }}>
+        {locations.map((x, i) => (
+          <li key={i} onClick={handleClick}>
+            <p>{x}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// locations.forEach((x, i) => {
+//   const location = x.split(", ");
+//   console.log(location[0]);
+// });
 
 export default AutoComplete;

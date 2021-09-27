@@ -13,7 +13,7 @@ const getAllRestaurants = async (req, res) => {
     const { data } = await axios.get(
       `https://api.yelp.com/v3/businesses/search?term=${
         term ? term : ""
-      }&categories=food,restaurants&location=UNITED KINGDOM&limit=30&offset=${page * 30}`,
+      }&categories=food,restaurants&location=London&limit=30&offset=${page * 30}`,
       config
     );
     // const { rows } = await db.query("SELECT * FROM restaurants");
