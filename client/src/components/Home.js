@@ -22,7 +22,7 @@ import RestaurantCard from "./RestaurantCard";
 import { CircularProgress } from "@material-ui/core";
 import Pagination from "./Pagination";
 
-const meals = [
+export const meals = [
   { name: "Chicken", img: chicken },
   { name: "Pizza", img: pizza },
   { name: "Rice", img: rice },

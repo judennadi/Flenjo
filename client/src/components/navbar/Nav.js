@@ -100,19 +100,19 @@ const Nav = ({ location, history }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(success, error, { enableHighAccuracy: true });
-    function success(position) {
-      console.log(position);
-      let lat = position.coords.latitude;
-      let lng = position.coords.longitude;
-      console.log(lat, lng);
-      // setUserGeoPos({ lat, lng });
-    }
-    function error(err) {
-      console.log(err);
-    }
-  }, []);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(success, error, { enableHighAccuracy: true });
+  //   function success(position) {
+  //     console.log(position);
+  //     let lat = position.coords.latitude;
+  //     let lng = position.coords.longitude;
+  //     console.log(lat, lng);
+  //     // setUserGeoPos({ lat, lng });
+  //   }
+  //   function error(err) {
+  //     console.log(err);
+  //   }
+  // }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", myScroll);

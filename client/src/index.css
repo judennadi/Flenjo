@@ -978,7 +978,7 @@ section.best-food-list h4 {
   font-size: 14px;
 }
 
-.restaurants h4 {
+/* .restaurants h4 {
   padding: 10px 15px 5px;
   font-size: 21px;
   font-weight: 600;
@@ -1011,7 +1011,7 @@ section.best-food-list h4 {
   font-size: 19px;
   font-weight: 600;
   padding-bottom: 4px;
-}
+} */
 
 @media screen and (min-width: 600px) {
   .dine-nightlife {
@@ -1049,7 +1049,7 @@ section.best-food-list h4 {
     padding: 0 10px 10px;
     font-weight: 500;
   }
-  .restaurants {
+  /* .restaurants {
     background: #fff;
   }
   .restaurants h4 {
@@ -1067,7 +1067,7 @@ section.best-food-list h4 {
   }
   .restaurants > div > div div:nth-child(1) {
     height: 220px;
-  }
+  } */
 }
 /* ======================= Dining Out and Nightlife end ======================= */
 

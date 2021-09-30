@@ -2,9 +2,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
-import DiningOut from "./components/DiningOut";
+import Bars from "./components/Bars";
 import Nightlife from "./components/Nightlife";
-import Nutrition from "./components/Nutrition";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ForgotPassword from "./components/auth/ForgotPassword";
@@ -43,9 +42,8 @@ function App() {
           <Navbar />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/dine-out" component={DiningOut} />
+            <Route path="/bars" component={Bars} />
             <Route path="/nightlife" component={Nightlife} />
-            <Route path="/nutrition" component={Nutrition} />
             <Route path="/restaurant-search" component={RestaurantSearch} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />

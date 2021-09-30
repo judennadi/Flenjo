@@ -1,10 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
-import Nav from "./Nav";
-import nutritionPri from "../../img/nav/plan (1).png";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
-import nutritionSec from "../../img/nav/plan.png";
+import Nav from "./Nav";
+import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
 import nightlifePri from "../../img/nav/whiskey (1).png";
 import nightlifeSec from "../../img/nav/whiskey.png";
 import deliveryPri from "../../img/nav/delivery-man.png";
@@ -54,13 +52,10 @@ const Navbar = () => {
     const ul = document.querySelector(".nav-menu ul").childNodes;
 
     ul.forEach((li, index) => {
-      if (location.pathname === "/dine-out" && index === 1) {
+      if (location.pathname === "/bars" && index === 1) {
         document.querySelector(".nav-menu .active").classList.remove("active");
         li.classList.add("active");
       } else if (location.pathname === "/nightlife" && index === 2) {
-        document.querySelector(".nav-menu .active").classList.remove("active");
-        li.classList.add("active");
-      } else if (location.pathname === "/nutrition" && index === 3) {
         document.querySelector(".nav-menu .active").classList.remove("active");
         li.classList.add("active");
       } else if (location.pathname === "/" && index === 0) {
@@ -95,23 +90,17 @@ const Navbar = () => {
                 </div>
                 <p>Delivery</p>
               </li>
-              <li onClick={(e) => navClick(e, "/dine-out")}>
+              <li onClick={(e) => navClick(e, "/bars")}>
                 <div>
                   <img src={imgSwap === "Dining Out" ? mealSec : mealPri} alt="" />
                 </div>
-                <p>Dining Out</p>
+                <p>Bars</p>
               </li>
               <li onClick={(e) => navClick(e, "/nightlife")}>
                 <div>
                   <img src={imgSwap === "Nightlife" ? nightlifeSec : nightlifePri} alt="" />
                 </div>
                 <p>Nightlife</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/nutrition")}>
-                <div>
-                  <img src={imgSwap === "Nutrition" ? nutritionSec : nutritionPri} alt="" />
-                </div>
-                <p>Nutrition</p>
               </li>
             </ul>
           </div>
@@ -138,23 +127,17 @@ const Navbar = () => {
                 </div>
                 <p>Delivery</p>
               </li>
-              <li onClick={(e) => navClick(e, "/dine-out")}>
+              <li onClick={(e) => navClick(e, "/bars")}>
                 <div>
                   <img src={imgSwap === "Dining Out" ? mealSec : mealPri} alt="" />
                 </div>
-                <p>Dining Out</p>
+                <p>Bars</p>
               </li>
               <li onClick={(e) => navClick(e, "/nightlife")}>
                 <div>
                   <img src={imgSwap === "Nightlife" ? nightlifeSec : nightlifePri} alt="" />
                 </div>
                 <p>Nightlife</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/nutrition")}>
-                <div>
-                  <img src={imgSwap === "Nutrition" ? nutritionSec : nutritionPri} alt="" />
-                </div>
-                <p>Nutrition</p>
               </li>
             </ul>
           </div>

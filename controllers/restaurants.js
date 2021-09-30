@@ -11,9 +11,9 @@ const getAllRestaurants = async (req, res) => {
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?term=${
+      `https://api.yelp.com/v3/businesses/search?location=CA&term=${
         term ? term : ""
-      }&categories=food,restaurants&location=London&limit=30&offset=${page * 30}`,
+      }&categories=food,restaurants&limit=30&offset=${page * 30}`,
       config
     );
     // const { rows } = await db.query("SELECT * FROM restaurants");
@@ -23,6 +23,58 @@ const getAllRestaurants = async (req, res) => {
     } else {
       res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    console.log(error);
+  }
+};
+
+const getBars = async (req, res) => {
+  //  const { page, term, rating } = req.query;
+  // console.log(req.query.term);
+  const token = process.env.YELP_API_KEY;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  try {
+    const { data } = await axios.get(
+      `https://api.yelp.com/v3/businesses/search?location=USA&term=nightlife&categories=bars&limit=30`,
+      config
+    );
+    // const { rows } = await db.query("SELECT * FROM restaurants");
+    //  if (rating) {
+    //    let newBusinesses = data.businesses.filter((restaurant) => restaurant.rating >= parseFloat(rating));
+    //    res.status(200).json({ data: newBusinesses, total: data.total > 1000 ? 1000 : data.total });
+    //  } else {
+    //    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
+    //  }
+    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    console.log(error);
+  }
+};
+
+const getNightlife = async (req, res) => {
+  //  const { page, term, rating } = req.query;
+  // console.log(req.query.term);
+  const token = process.env.YELP_API_KEY;
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  try {
+    const { data } = await axios.get(
+      `https://api.yelp.com/v3/businesses/search?location=USA&term=nightlife&categories=adultentertainment&limit=30`,
+      config
+    );
+    // const { rows } = await db.query("SELECT * FROM restaurants");
+    //  if (rating) {
+    //    let newBusinesses = data.businesses.filter((restaurant) => restaurant.rating >= parseFloat(rating));
+    //    res.status(200).json({ data: newBusinesses, total: data.total > 1000 ? 1000 : data.total });
+    //  } else {
+    //    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
+    //  }
+    res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
   } catch (error) {
     res.status(400).json({ error: error.message });
     console.log(error);
@@ -128,6 +180,8 @@ const deleteRestaurant = async (req, res) => {
 
 module.exports = {
   getAllRestaurants,
+  getBars,
+  getNightlife,
   searchAutocomplete,
   getRestaurant,
   addRestaurant,
