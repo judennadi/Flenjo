@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect } from "react";
+import { useRef, useContext } from "react";
 import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
 import { RestaurantContext } from "../context/RestaurantContextProvider";
 import beef from "../img/foods/beef.jpg";
@@ -108,17 +108,6 @@ const Home = () => {
   const selectMenu = (e) => {
     dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
   };
-
-  useEffect(() => {
-    // navigator.geolocation.getCurrentPosition(success);
-    // function success(position) {
-    //   console.log(position);
-    //   let lat = position.coords.latitude;
-    //   let lng = position.coords.longitude;
-    //   console.log(lat, lng);
-    //   // setUserGeoPos({ lat, lng });
-    // }
-  }, []);
 
   // api key
   // AIzaSyBpOkv8EmT8DTL1wnu7PAa7Xt-mRPe1gwQ

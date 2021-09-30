@@ -42,26 +42,26 @@ const Nav = ({ location, history }) => {
   const handleKeyUp = (e) => {
     const list = document.querySelectorAll(".autocomplete-con ul li");
     const removeActive = (x) => {
-      /*a function to remove the "active" class from all autocomplete items:*/
+      /* a function to remove the "active" class from all autocomplete items:*/
       for (var i = 0; i < x.length; i++) {
         x[i].classList.remove("active");
       }
     };
     const addActive = (x) => {
-      /*a function to classify an item as "active":*/
+      /* a function to classify an item as "active":*/
       if (!x) return false;
-      /*start by removing the "active" class on all items:*/
+      /* start by removing the "active" class on all items:*/
       removeActive(x);
       if (currentFocus >= x.length) currentFocus = 0;
       if (currentFocus < 0) currentFocus = x.length - 1;
-      /*add class "autocomplete-active":*/
+      /* add class "autocomplete-active":*/
       x[currentFocus].classList.add("active");
     };
 
     if (list) {
       if (e.key === "Enter") {
         if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
+          /* and simulate a click on the "active" item:*/
           list[currentFocus].click();
           dispatch({ type: "SET_TERM", payload: list[currentFocus].childNodes[0].textContent });
           setIsST(false);
@@ -84,7 +84,7 @@ const Nav = ({ location, history }) => {
   const handleBlur = (e) => {
     setIsST(false);
   };
- 
+
   const handleFocus = (e) => {
     setIsST(true);
   };
@@ -98,6 +98,20 @@ const Nav = ({ location, history }) => {
       .then((res) => res.json())
       .then((data) => setUserLoc(data))
       .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, error, { enableHighAccuracy: true });
+    function success(position) {
+      console.log(position);
+      let lat = position.coords.latitude;
+      let lng = position.coords.longitude;
+      console.log(lat, lng);
+      // setUserGeoPos({ lat, lng });
+    }
+    function error(err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
