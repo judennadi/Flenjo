@@ -3,12 +3,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
 import Nav from "./Nav";
 import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
-import nightlifePri from "../../img/nav/whiskey (1).png";
-import nightlifeSec from "../../img/nav/whiskey.png";
+import barPri from "../../img/nav/whiskey (1).png";
+import barSec from "../../img/nav/whiskey.png";
 import deliveryPri from "../../img/nav/delivery-man.png";
 import deliverySec from "../../img/nav/delivery-man (1).png";
-import mealPri from "../../img/nav/breakfast (1).png";
-import mealSec from "../../img/nav/breakfast.png";
+import clubSec from "../../img/nav/dancer (1).png";
+import clubPri from "../../img/nav/dancer.png";
 
 const Navbar = () => {
   const history = useHistory();
@@ -92,13 +92,13 @@ const Navbar = () => {
               </li>
               <li onClick={(e) => navClick(e, "/bars")}>
                 <div>
-                  <img src={imgSwap === "Dining Out" ? mealSec : mealPri} alt="" />
+                  <img src={imgSwap === "Bars" ? barSec : barPri} alt="" />
                 </div>
                 <p>Bars</p>
               </li>
               <li onClick={(e) => navClick(e, "/nightlife")}>
                 <div>
-                  <img src={imgSwap === "Nightlife" ? nightlifeSec : nightlifePri} alt="" />
+                  <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
                 </div>
                 <p>Nightlife</p>
               </li>
@@ -129,13 +129,13 @@ const Navbar = () => {
               </li>
               <li onClick={(e) => navClick(e, "/bars")}>
                 <div>
-                  <img src={imgSwap === "Dining Out" ? mealSec : mealPri} alt="" />
+                  <img src={imgSwap === "Bars" ? barSec : barPri} alt="" />
                 </div>
                 <p>Bars</p>
               </li>
               <li onClick={(e) => navClick(e, "/nightlife")}>
                 <div>
-                  <img src={imgSwap === "Nightlife" ? nightlifeSec : nightlifePri} alt="" />
+                  <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
                 </div>
                 <p>Nightlife</p>
               </li>

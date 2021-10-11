@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ArrowRight } from "@material-ui/icons";
-import trending from "../img/foods/trending.jpg";
-import workPlace from "../img/places/work place.jpg";
-import bestOfLocation from "../img/places/best of.jpg";
-import outdoor from "../img/places/outdoor.jpg";
+// import { ArrowRight } from "@material-ui/icons";
+// import trending from "../img/foods/trending.jpg";
+// import workPlace from "../img/places/work place.jpg";
+// import bestOfLocation from "../img/places/best of.jpg";
+// import outdoor from "../img/places/outdoor.jpg";
 import RestaurantCard from "./RestaurantCard";
 import { meals } from "./Home";
 
@@ -42,7 +42,7 @@ const Bars = ({ history }) => {
             <p>Explore curated lists of top bars in your location based on trends</p>
           </div>
 
-          <div className="trending-con">
+          {/* <div className="trending-con">
             <div>
               <img src={trending} alt="" />
               <div>
@@ -91,7 +91,7 @@ const Bars = ({ history }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <section className="best-food-list container">

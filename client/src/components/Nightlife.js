@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
 import { meals } from "./Home";
-import bar1 from "../img/places/bar1.jpg";
-import bar2 from "../img/places/bar2.jpg";
-import liquor from "../img/drinks/liquor.jpg";
-import beer from "../img/drinks/beer.jpg";
+// import bar1 from "../img/places/bar1.jpg";
+// import bar2 from "../img/places/bar2.jpg";
+// import liquor from "../img/drinks/liquor.jpg";
+// import beer from "../img/drinks/beer.jpg";
 
 const Nightlife = ({ history }) => {
   const [clubs, setClubs] = useState([]);
@@ -54,7 +54,7 @@ const Nightlife = ({ history }) => {
             <p>Explore curated lists of top clubs in your location based on trends</p>
           </div>
 
-          <div className="trending-con">
+          {/* <div className="trending-con">
             <div>
               <img src={bar1} alt="" />
               <div>
@@ -91,7 +91,7 @@ const Nightlife = ({ history }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <section className="best-food-list container">
