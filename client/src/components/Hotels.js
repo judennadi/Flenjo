@@ -2,13 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
 import { RestaurantContext } from "../context/RestaurantContextProvider";
-import { meals } from "./Home";
-import Pagination from "./Pagination";
 import { CircularProgress } from "@material-ui/core";
+import Pagination from "./Pagination";
+import { meals } from "./Home";
 
-const Bars = ({ history }) => {
+const Hotels = ({ history }) => {
   const { rating } = useContext(RestaurantContext);
-  const [bars, setBars] = useState([]);
+  const [clubs, setClubs] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
   const [term, setTerm] = useState("");
@@ -24,13 +24,13 @@ const Bars = ({ history }) => {
 
       try {
         const { data } = await axios.get(
-          `/api/restaurants/bars?page=${page - 1}&rating=${rating ? rating : ""}`,
+          `/api/restaurants/nightlife?page=${page - 1}&rating=${rating ? rating : ""}`,
           {
             cancelToken: source.token,
           }
         );
         console.log(data);
-        setBars(data.data);
+        setClubs(data.data);
         setTotal(data.total);
         setIsLoading(false);
         setIsError(false);
@@ -38,7 +38,7 @@ const Bars = ({ history }) => {
         if (axios.isCancel(error)) {
           return;
         }
-        setIsError(true);
+        setIsError(false);
         console.error(error);
       }
     };
@@ -47,7 +47,7 @@ const Bars = ({ history }) => {
 
   return (
     <div className="container">
-      <section className="dine-out container">
+      <section className="nightlife container">
         <section className="best-food-list container">
           {isLoading ? (
             <div
@@ -62,10 +62,10 @@ const Bars = ({ history }) => {
             </div>
           ) : (
             <>
-              <h4>Bars</h4>
+              <h4>Hotels</h4>
               <div className="best-food-con">
-                {bars.map((bar) => (
-                  <RestaurantCard key={bar.id} restaurant={bar} meals={meals} />
+                {clubs.map((club) => (
+                  <RestaurantCard key={club.id} restaurant={club} meals={meals} />
                 ))}
               </div>
               <div>
@@ -79,4 +79,4 @@ const Bars = ({ history }) => {
   );
 };
 
-export default Bars;
+export default Hotels;

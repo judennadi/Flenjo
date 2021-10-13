@@ -55,7 +55,7 @@ const Navbar = () => {
       if (location.pathname === "/bars" && index === 1) {
         document.querySelector(".nav-menu .active").classList.remove("active");
         li.classList.add("active");
-      } else if (location.pathname === "/nightlife" && index === 2) {
+      } else if (location.pathname === "/hotels" && index === 2) {
         document.querySelector(".nav-menu .active").classList.remove("active");
         li.classList.add("active");
       } else if (location.pathname === "/" && index === 0) {
@@ -78,73 +78,39 @@ const Navbar = () => {
 
   return (
     <div className="container">
-      {location.pathname === "/" ? (
-        <header className={scroll ? "sticky" : ""}>
-          <Nav location={location} history={history} />
+      <header className={scroll ? "sticky" : ""}>
+        <Nav location={location} history={history} />
 
-          <div className="nav-menu">
-            <ul>
-              <li className="active" onClick={(e) => navClick(e, "/")}>
-                <div>
-                  <img src={imgSwap === "Delivery" ? deliverySec : deliveryPri} alt="" />
-                </div>
-                <p>Delivery</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/bars")}>
-                <div>
-                  <img src={imgSwap === "Bars" ? barSec : barPri} alt="" />
-                </div>
-                <p>Bars</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/nightlife")}>
-                <div>
-                  <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
-                </div>
-                <p>Nightlife</p>
-              </li>
-            </ul>
-          </div>
+        <div className="nav-menu">
+          <ul>
+            <li className="active" onClick={(e) => navClick(e, "/")}>
+              <div>
+                <img src={imgSwap === "Delivery" ? deliverySec : deliveryPri} alt="" />
+              </div>
+              <p>Delivery</p>
+            </li>
+            <li onClick={(e) => navClick(e, "/bars")}>
+              <div>
+                <img src={imgSwap === "Bars" ? barSec : barPri} alt="" />
+              </div>
+              <p>Bars</p>
+            </li>
+            <li onClick={(e) => navClick(e, "/hotels")}>
+              <div>
+                <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
+              </div>
+              <p>Hotels</p>
+            </li>
+          </ul>
+        </div>
 
-          <hr className="nav-menu-hr" />
+        <hr className="nav-menu-hr" />
 
-          <div className="filter-con">
-            <Filters history={history} />
-          </div>
-          <div className="fil-scroll-backup"></div>
-        </header>
-      ) : (
-        <header
-          className={scroll ? "sticky2" : ""}
-          style={!mqXl.matches ? { paddingBottom: "5px", borderBottom: "1px solid #3636361a" } : null}
-        >
-          <Nav location={location} history={history} />
-
-          <div className="nav-menu">
-            <ul>
-              <li className="active" onClick={(e) => navClick(e, "/")}>
-                <div>
-                  <img src={imgSwap === "Delivery" ? deliverySec : deliveryPri} alt="" />
-                </div>
-                <p>Delivery</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/bars")}>
-                <div>
-                  <img src={imgSwap === "Bars" ? barSec : barPri} alt="" />
-                </div>
-                <p>Bars</p>
-              </li>
-              <li onClick={(e) => navClick(e, "/nightlife")}>
-                <div>
-                  <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
-                </div>
-                <p>Nightlife</p>
-              </li>
-            </ul>
-          </div>
-
-          <hr className="nav-menu-hr" />
-        </header>
-      )}
+        <div className="filter-con">
+          <Filters history={history} />
+        </div>
+        <div className="fil-scroll-backup"></div>
+      </header>
       <div className="scroll-backup"></div>
     </div>
   );

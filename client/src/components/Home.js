@@ -40,7 +40,7 @@ export const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { restaurants, term, isSearch, isLoading, isSubLoading, isError, dispatch } =
+  const { restaurants, term, page, total, isSearch, isLoading, isSubLoading, isError, dispatch } =
     useContext(RestaurantContext);
   // const [restaurants, setRestaurants] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
@@ -221,7 +221,7 @@ const Home = () => {
                   )}
                 </div>
                 <div>
-                  <Pagination />
+                  <Pagination page={page} total={total} dispatch={dispatch} is={false} />
                 </div>
               </section>
             </>
@@ -243,7 +243,7 @@ const Home = () => {
                 )}
               </div>
               <div>
-                <Pagination />
+                <Pagination page={page} total={total} dispatch={dispatch} is={false} />
               </div>
             </section>
           )}

@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
 import Bars from "./components/Bars";
-import Nightlife from "./components/Nightlife";
+import Hotels from "./components/Hotels";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ForgotPassword from "./components/auth/ForgotPassword";
@@ -32,8 +32,6 @@ const theme = createMuiTheme({
   },
 });
 
-// rPF8LXa4WNvtdNO7k2jtwKY17VsyIsEQQUWHZiN-R93JR2bQ8LMdzAR_cLMijcUE91WEuq17OciXUWSodtHTdqJ_7f6PuDEbEEdgXV_B6KZb65vYBZD56VWTZBPLYHYx
-
 function App() {
   return (
     <Router>
@@ -43,7 +41,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/bars" component={Bars} />
-            <Route path="/nightlife" component={Nightlife} />
+            <Route path="/hotels" component={Hotels} />
             <Route path="/restaurant-search" component={RestaurantSearch} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />

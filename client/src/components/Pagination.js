@@ -1,13 +1,17 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import Pagination from "@material-ui/lab/Pagination";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
+// import { RestaurantContext } from "../context/RestaurantContextProvider";
 
-const PaginationControlled = () => {
-  const { page, total, dispatch } = useContext(RestaurantContext);
+const PaginationControlled = ({ page, total, dispatch, is }) => {
+  // const  = useContext(RestaurantContext);
   let mqSm = window.matchMedia("(max-width: 600px)");
 
   const handleChange = (event, value) => {
-    dispatch({ type: "SET_PAGE", payload: value });
+    if (is) {
+      dispatch(value);
+    } else {
+      dispatch({ type: "SET_PAGE", payload: value });
+    }
   };
 
   return (
