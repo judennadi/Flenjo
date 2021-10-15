@@ -18,7 +18,7 @@ const RestaurantCard = ({ restaurant, meals }) => {
           <div className="rating">
             <StarRating value={restaurant.rating} />
             <p>{restaurant.rating}</p>
-            <p>({restaurant.review_count} Delivery Reviews)</p>
+            <p>({restaurant.review_count} Reviews)</p>
           </div>
           <div className="categories">
             {restaurant.categories.map((x, idx) =>

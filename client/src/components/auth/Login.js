@@ -1,21 +1,52 @@
+import { Modal, TextField } from "@material-ui/core";
+import { useState, useEffect } from "react";
+
+// const useStyles = makeStyles((theme) => ({
+//   modal: {
+//     root: {
+//       "& > :last-child": {
+//         outline: "none",
+//       },
+//     },
+//   },
+// }));
+
 const Login = () => {
+  // const classes = useStyles();
+  const [openAuth, setOpenAuth] = useState(false);
+  const handleOpenAuth = () => setOpenAuth(true);
+  const handleCloseAuth = () => setOpenAuth(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (mounted) {
+      handleOpenAuth();
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <div className="container">
-      <div className="auth-con">
-        <div className="form-con">
-          <form>
-            <h4>Log in</h4>
-            <div className="äuth-input">
-              <input type="text" />
+      <Modal open={openAuth} onClose={handleCloseAuth}>
+        <div className="auth-modal">
+          <div className="title">
+            <h2>Login</h2>
+            <div>X</div>
+          </div>
+          <form className="auth-form">
+            <div className="input">
+              <TextField />
             </div>
-            <div className="äuth-input">
-              <input type="password" />
+            <div className="input">
+              <input type="text" name="password" placeholder="Password" />
             </div>
-            <p>Or</p>
-            <div className="oauth"></div>
           </form>
         </div>
-      </div>
+      </Modal>
     </div>
   );
 };

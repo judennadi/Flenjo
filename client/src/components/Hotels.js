@@ -18,8 +18,9 @@ const Hotels = ({ history }) => {
   const mqXl = window.matchMedia("(min-width: 601px)");
 
   useEffect(() => {
+    let mounted = true;
+    const source = axios.CancelToken.source();
     const fetchData = async () => {
-      const source = axios.CancelToken.source();
       setIsLoading(true);
 
       try {
@@ -29,20 +30,31 @@ const Hotels = ({ history }) => {
             cancelToken: source.token,
           }
         );
-        console.log(data);
-        setClubs(data.data);
-        setTotal(data.total);
-        setIsLoading(false);
-        setIsError(false);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          return;
+        if (mounted) {
+          console.log(data);
+          setClubs(data.data);
+          setTotal(data.total);
+          setIsLoading(false);
+          setIsError(false);
         }
-        setIsError(false);
-        console.error(error);
+      } catch (error) {
+        if (mounted) {
+          setIsError(false);
+          setIsLoading(false);
+          if (axios.isCancel(error)) {
+            console.log("axios cancelled");
+          } else {
+            console.error(error);
+          }
+        }
       }
     };
     fetchData();
+
+    return () => {
+      mounted = false;
+      source.cancel();
+    };
   }, [page, rating, term]);
 
   return (

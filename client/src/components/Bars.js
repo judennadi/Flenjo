@@ -11,15 +11,14 @@ const Bars = ({ history }) => {
   const [bars, setBars] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
-  const [term, setTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [isSubLoading, setIsSubLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const mqXl = window.matchMedia("(min-width: 601px)");
 
   useEffect(() => {
+    let mounted = true;
+    const source = axios.CancelToken.source();
     const fetchData = async () => {
-      const source = axios.CancelToken.source();
       setIsLoading(true);
 
       try {
@@ -29,21 +28,32 @@ const Bars = ({ history }) => {
             cancelToken: source.token,
           }
         );
-        console.log(data);
-        setBars(data.data);
-        setTotal(data.total);
-        setIsLoading(false);
-        setIsError(false);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          return;
+        if (mounted) {
+          console.log(data);
+          setBars(data.data);
+          setTotal(data.total);
+          setIsLoading(false);
+          setIsError(false);
         }
-        setIsError(true);
-        console.error(error);
+      } catch (error) {
+        if (mounted) {
+          setIsError(true);
+          setIsLoading(false);
+          if (axios.isCancel(error)) {
+            console.log("axios cancelled");
+          } else {
+            console.error(error);
+          }
+        }
       }
     };
     fetchData();
-  }, [page, rating, term]);
+
+    return () => {
+      mounted = false;
+      source.cancel();
+    };
+  }, [page, rating]);
 
   return (
     <div className="container">

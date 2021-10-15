@@ -7,8 +7,8 @@ import barPri from "../../img/nav/whiskey (1).png";
 import barSec from "../../img/nav/whiskey.png";
 import deliveryPri from "../../img/nav/delivery-man.png";
 import deliverySec from "../../img/nav/delivery-man (1).png";
-import clubSec from "../../img/nav/dancer (1).png";
-import clubPri from "../../img/nav/dancer.png";
+import hotelSec from "../../img/nav/hotel (1).png";
+import hotelPri from "../../img/nav/hotel.png";
 
 const Navbar = () => {
   const history = useHistory();
@@ -97,7 +97,7 @@ const Navbar = () => {
             </li>
             <li onClick={(e) => navClick(e, "/hotels")}>
               <div>
-                <img src={imgSwap === "Nightlife" ? clubSec : clubPri} alt="" />
+                <img src={imgSwap === "Hotels" ? hotelSec : hotelPri} alt="" />
               </div>
               <p>Hotels</p>
             </li>
@@ -106,10 +106,16 @@ const Navbar = () => {
 
         <hr className="nav-menu-hr" />
 
-        <div className="filter-con">
-          <Filters history={history} />
-        </div>
-        <div className="fil-scroll-backup"></div>
+        {location.pathname === "/" || location.pathname === "/bars" || location.pathname === "/hotels" ? (
+          <>
+            <div className="filter-con">
+              <Filters history={history} />
+            </div>
+            <div className="fil-scroll-backup"></div>
+          </>
+        ) : (
+          ""
+        )}
       </header>
       <div className="scroll-backup"></div>
     </div>

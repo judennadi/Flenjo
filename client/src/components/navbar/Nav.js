@@ -125,9 +125,9 @@ const Nav = ({ location, history }) => {
     <>
       <nav>
         <div className="logo">
-          <h2 style={{ letterSpacing: "-1px" }} onClick={() => history.push("/")}>
+          <h1 style={{ letterSpacing: "-1px" }} onClick={() => history.push("/")}>
             FLENJO
-          </h2>
+          </h1>
         </div>
         <div className="nav-auth-sm">
           <Person color="primary" />

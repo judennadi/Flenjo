@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Quicksand:wght@400;500;600;700&display=swap");
 
 :root {
   --pri: #ed5a6b;
@@ -99,6 +99,41 @@ body {
   color: #fff;
 }
 
+/* ================= Auth =================== */
+
+.auth-modal {
+  position: absolute;
+  width: 100%;
+  margin: 50px 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 20px;
+}
+.auth-modal .title {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.auth-form {
+  margin: 10px;
+}
+.auth-form .input-con {
+  margin: 10px 0;
+}
+.input-con input {
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-modal {
+    margin: 0;
+    width: 400px;
+    height: 500px;
+    left: calc(50% - 200px);
+    top: calc(50% - 250px);
+  }
+}
+
 /* ================= Navbar =================== */
 
 header {
@@ -144,6 +179,10 @@ header nav {
 .logo {
   display: grid;
   place-self: center;
+}
+.logo h1 {
+  font-family: "Permanent Marker", cursive;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
 }
 .nav-auth-sm {
   height: 40px;
@@ -1079,6 +1118,7 @@ section.best-food-list h4 {
   height: 250px;
   width: 100%;
   overflow: hidden;
+  z-index: -1;
 }
 .details-img-grid div {
   border: 1px solid var(--shadowC2);
@@ -1148,6 +1188,7 @@ section.best-food-list h4 {
   height: 160px;
   border: 1px solid var(--shadowC2);
   margin: 10px 0;
+  z-index: -1;
 }
 .reviews {
   width: 100%;
@@ -1179,6 +1220,7 @@ section.best-food-list h4 {
   color: var(--pri);
   font-weight: 500;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .add-review div p {

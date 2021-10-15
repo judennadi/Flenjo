@@ -11,25 +11,36 @@ const RestaurantDetails = ({ match, history }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+    const source = axios.CancelToken.source();
     const fetchData = async () => {
-      const source = axios.CancelToken.source();
       setIsLoading(true);
       try {
         const { data } = await axios.get(`/api/restaurants/${match.params.id}`, {
           cancelToken: source.token,
         });
-        console.log(data);
-        setRestaurant(data.restaurant);
-        setReviews(data.reviews);
-        setIsLoading(false);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          return;
+        if (mounted) {
+          console.log(data);
+          setRestaurant(data.restaurant);
+          setReviews(data.reviews);
+          setIsLoading(false);
         }
-        console.error(error);
+      } catch (error) {
+        if (mounted) {
+          if (axios.isCancel(error)) {
+            console.log("axios cancelled");
+          } else {
+            console.error(error);
+          }
+        }
       }
     };
     fetchData();
+
+    return () => {
+      mounted = false;
+      source.cancel();
+    };
   }, [match.params.id]);
 
   return (
@@ -86,7 +97,7 @@ const RestaurantDetails = ({ match, history }) => {
                   <StarRating value={restaurant.rating} />
                   <p>{restaurant.rating}</p>
                 </div>
-                <p>{restaurant.review_count} Delivery Reviews</p>
+                <p>{restaurant.review_count} Reviews</p>
               </div>
             </div>
 
@@ -120,7 +131,7 @@ const RestaurantDetails = ({ match, history }) => {
                 </div>
                 <div>
                   <div className="add-review">
-                    <h4>Rate your delivery experience</h4>
+                    <h4>Rate your experience</h4>
                     <div>
                       <AddStarRating size="large" />
                     </div>
