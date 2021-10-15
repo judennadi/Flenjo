@@ -13,7 +13,7 @@ const Hotels = ({ history }) => {
   const [total, setTotal] = useState(null);
   const [term, setTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [isSubLoading, setIsSubLoading] = useState(false);
+  // const [isSubLoading, setIsSubLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const mqXl = window.matchMedia("(min-width: 601px)");
 

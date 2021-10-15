@@ -1,50 +1,45 @@
-import { Modal, TextField } from "@material-ui/core";
 import { useState, useEffect } from "react";
-
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     root: {
-//       "& > :last-child": {
-//         outline: "none",
-//       },
-//     },
-//   },
-// }));
+import { Link } from "react-router-dom";
+import { Button, Modal, TextField } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 
 const Login = () => {
-  // const classes = useStyles();
-  const [openAuth, setOpenAuth] = useState(false);
-  const handleOpenAuth = () => setOpenAuth(true);
-  const handleCloseAuth = () => setOpenAuth(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    let mounted = true;
-
-    if (mounted) {
-      handleOpenAuth();
-    }
-
-    return () => {
-      mounted = false;
-    };
+    handleOpen();
   }, []);
-
   return (
-    <div className="container">
-      <Modal open={openAuth} onClose={handleCloseAuth}>
-        <div className="auth-modal">
+    <div>
+      <Modal open={open} onClose={handleClose}>
+        <div className="auth-modal login">
           <div className="title">
-            <h2>Login</h2>
-            <div>X</div>
+            <h1>Login</h1>
+            <div style={{ cursor: "pointer" }} onClick={() => setOpen(!open)}>
+              <Close />
+            </div>
           </div>
           <form className="auth-form">
-            <div className="input">
-              <TextField />
+            <div className="input-con">
+              <TextField variant="outlined" size="small" name="username" label="Username" fullWidth />
             </div>
-            <div className="input">
-              <input type="text" name="password" placeholder="Password" />
+            <div className="input-con">
+              <TextField variant="outlined" size="small" name="password" label="Password" fullWidth />
+            </div>
+            <div className="cen-grid">
+              <Button variant="contained" color="secondary" type="submit">
+                Login
+              </Button>
             </div>
           </form>
+          <p>
+            New to Flenjo?{" "}
+            <Link to="/register" style={{ color: "#ed5a6b" }}>
+              Create account
+            </Link>
+          </p>
         </div>
       </Modal>
     </div>
