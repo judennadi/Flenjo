@@ -109,7 +109,7 @@ const Navbar = () => {
         {location.pathname === "/" || location.pathname === "/bars" || location.pathname === "/hotels" ? (
           <>
             <div className="filter-con">
-              <Filters history={history} />
+              <Filters history={history} location={location} />
             </div>
             <div className="fil-scroll-backup"></div>
           </>
@@ -123,8 +123,8 @@ const Navbar = () => {
 };
 
 // ================ Filter Component ================
-function Filters({ history }) {
-  const { term, isSearch, dispatch } = useContext(RestaurantContext);
+function Filters({ history, location }) {
+  const { term, isResSearch, isBarSearch, isHotSearch, dispatch } = useContext(RestaurantContext);
   const [filtNo, setFiltNo] = useState(0);
 
   const clearTerm = (e) => {
@@ -134,7 +134,7 @@ function Filters({ history }) {
     } else {
       setFiltNo(0);
     }
-    history.push("/");
+    // history.push("/");
   };
 
   const handleRating = (e) => {
@@ -155,7 +155,7 @@ function Filters({ history }) {
     <div>
       <ul>
         <li>
-          {isSearch ? (
+          {isResSearch || isBarSearch || isHotSearch ? (
             <div
               style={{
                 background: "#ed5a6b",
@@ -188,7 +188,7 @@ function Filters({ history }) {
           )}
           <p>Filters</p>
         </li>
-        {isSearch ? (
+        {isResSearch || isBarSearch || isHotSearch ? (
           <li style={{ background: "#ed5a6b", color: "#fff" }} onClick={clearTerm}>
             <p>{term}</p>
             <div className="cen-grid" style={{ marginLeft: "4px" }}>

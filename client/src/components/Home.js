@@ -40,7 +40,7 @@ export const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { restaurants, term, page, total, isSearch, isLoading, isSubLoading, isError, dispatch } =
+  const { restaurants, term, page, total, isResSearch, isLoading, isSubLoading, isError, dispatch } =
     useContext(RestaurantContext);
   // const [restaurants, setRestaurants] = useState([]);
   // const [isLoading, setIsLoading] = useState(true);
@@ -124,7 +124,7 @@ const Home = () => {
         </div>
       ) : (
         <>
-          {!isSearch ? (
+          {!isResSearch ? (
             <>
               <section className="food-inspire">
                 <div className="food-grid-con">
@@ -227,7 +227,7 @@ const Home = () => {
             </>
           ) : (
             <section className="best-food-list container">
-              <h4>{term ? `${term[0].toUpperCase() + term.slice(1)} Restaurants close to you` : ""}</h4>
+              <h4>{term ? `result: ${term[0].toUpperCase() + term.slice(1)}` : ""}</h4>
               <div className="best-food-con">
                 {isSubLoading ? (
                   <div

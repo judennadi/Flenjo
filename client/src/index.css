@@ -101,24 +101,31 @@ body {
 
 /* ================= Auth =================== */
 
+.auth-con {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0 20px;
+}
+
 .auth-modal {
-  position: absolute;
-  width: 300px;
-  height: 400px;
-  left: calc(50% - 150px);
-  top: calc(50% - 200px);
-  margin: 50px 10px;
+  width: 100%;
+  margin: 50px 0;
   border-radius: 10px;
   background: #fff;
-  padding: 20px;
+  padding: 10px;
 }
 .auth-modal .title {
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
   margin: 10px 10px 30px;
 }
 .auth-modal p {
   margin: auto 10px 0;
+  text-align: center;
 }
 .auth-form {
   margin: 10px;
@@ -130,17 +137,21 @@ body {
   width: 100%;
 }
 
+.error-msg {
+  display: block;
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  transform: translateY(-10px);
+  text-align: center;
+  place-self: center;
+}
+
 @media screen and (min-width: 600px) {
   .auth-modal {
     margin: 0;
-    width: 350px;
-    height: 400px;
-    left: calc(50% - 175px);
-    top: calc(50% - 200px);
-  }
-  .auth-modal.login {
-    height: 300px;
-    top: calc(50% - 150px);
+    width: 400px;
+    padding: 20px;
   }
 }
 
@@ -192,7 +203,7 @@ header nav {
 }
 .logo h1 {
   font-family: "Permanent Marker", cursive;
-  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 .nav-auth-sm {
   height: 40px;
@@ -509,6 +520,7 @@ header nav {
     border: none;
     background: transparent;
     font-size: 18px;
+    font-weight: 500;
     cursor: pointer;
   }
   .nav-auth-xl .signup {

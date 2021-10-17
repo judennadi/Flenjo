@@ -4,7 +4,6 @@ const { v4: uuidv4 } = require("uuid");
 
 const getAllRestaurants = async (req, res) => {
   const { page, term, rating } = req.query;
-  // console.log(req.query.term);
   const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -30,22 +29,21 @@ const getAllRestaurants = async (req, res) => {
 };
 
 const getBars = async (req, res) => {
-  const { page, rating } = req.query;
-  // console.log(req.query.term);
+  const { page, term, rating } = req.query;
   const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?location=USA&term=nightlife&categories=bars&limit=30&offset=${
-        page * 30
-      }`,
+      `https://api.yelp.com/v3/businesses/search?location=USA&term=${
+        term ? term : "bars"
+      }&categories=beergardens,bars&limit=30&offset=${page * 30}`,
       config
     );
-    // const { rows } = await db.query("SELECT * FROM restaurants");
+    // const { rows } = await db.query("SELECT * FROM bars");
     if (rating) {
-      let newBusinesses = data.businesses.filter((restaurant) => restaurant.rating >= parseFloat(rating));
+      let newBusinesses = data.businesses.filter((bar) => bar.rating >= parseFloat(rating));
       res.status(200).json({ data: newBusinesses, total: data.total > 1000 ? 1000 : data.total });
     } else {
       res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
@@ -56,23 +54,22 @@ const getBars = async (req, res) => {
   }
 };
 
-const getNightlife = async (req, res) => {
-  const { page, rating } = req.query;
-  // console.log(req.query.term);
+const getHotels = async (req, res) => {
+  const { page, term, rating } = req.query;
   const token = process.env.YELP_API_KEY;
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
   try {
     const { data } = await axios.get(
-      `https://api.yelp.com/v3/businesses/search?location=USA&term=hotels&categories=hotels&limit=30&offset=${
-        page * 30
-      }`,
+      `https://api.yelp.com/v3/businesses/search?location=USA&term=${
+        term ? term : "hotels"
+      }&categories=hotels&limit=30&offset=${page * 30}`,
       config
     );
-    // const { rows } = await db.query("SELECT * FROM restaurants");
+    // const { rows } = await db.query("SELECT * FROM hotels");
     if (rating) {
-      let newBusinesses = data.businesses.filter((restaurant) => restaurant.rating >= parseFloat(rating));
+      let newBusinesses = data.businesses.filter((hotel) => hotel.rating >= parseFloat(rating));
       res.status(200).json({ data: newBusinesses, total: data.total > 1000 ? 1000 : data.total });
     } else {
       res.status(200).json({ data: data.businesses, total: data.total > 1000 ? 1000 : data.total });
@@ -183,7 +180,7 @@ const deleteRestaurant = async (req, res) => {
 module.exports = {
   getAllRestaurants,
   getBars,
-  getNightlife,
+  getHotels,
   searchAutocomplete,
   getRestaurant,
   addRestaurant,

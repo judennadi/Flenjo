@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Search, LocationOn, Person } from "@material-ui/icons";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
 import AutoComplete from "./AutoComplete";
+import { Link } from "react-router-dom";
 
 const Nav = ({ location, history }) => {
   const { dispatch } = useContext(RestaurantContext);
@@ -60,16 +61,42 @@ const Nav = ({ location, history }) => {
 
     if (list) {
       if (e.key === "Enter") {
-        if (currentFocus > -1) {
-          /* and simulate a click on the "active" item:*/
-          list[currentFocus].click();
-          dispatch({ type: "SET_TERM", payload: list[currentFocus].childNodes[0].textContent });
-          setIsST(false);
-          e.currentTarget.blur();
-        } else {
-          dispatch({ type: "SET_TERM", payload: e.target.value });
-          setIsST(false);
-          e.currentTarget.blur();
+        if (location.pathname === "/") {
+          if (currentFocus > -1) {
+            /* and simulate a click on the "active" item:*/
+            list[currentFocus].click();
+            dispatch({ type: "SET_RES_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            setIsST(false);
+            e.currentTarget.blur();
+          } else {
+            dispatch({ type: "SET_RES_TERM", payload: e.target.value });
+            setIsST(false);
+            e.currentTarget.blur();
+          }
+        } else if (location.pathname === "/bars") {
+          if (currentFocus > -1) {
+            /* and simulate a click on the "active" item:*/
+            list[currentFocus].click();
+            dispatch({ type: "SET_BAR_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            setIsST(false);
+            e.currentTarget.blur();
+          } else {
+            dispatch({ type: "SET_BAR_TERM", payload: e.target.value });
+            setIsST(false);
+            e.currentTarget.blur();
+          }
+        } else if (location.pathname === "/hotels") {
+          if (currentFocus > -1) {
+            /* and simulate a click on the "active" item:*/
+            list[currentFocus].click();
+            dispatch({ type: "SET_HOT_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            setIsST(false);
+            e.currentTarget.blur();
+          } else {
+            dispatch({ type: "SET_HOT_TERM", payload: e.target.value });
+            setIsST(false);
+            e.currentTarget.blur();
+          }
         }
       } else if (e.key === "ArrowUp") {
         currentFocus--;
@@ -130,7 +157,9 @@ const Nav = ({ location, history }) => {
           </h1>
         </div>
         <div className="nav-auth-sm">
-          <Person color="primary" />
+          <Link to="/login">
+            <Person color="primary" />
+          </Link>
         </div>
         <div className="search-xl">
           <div className="input">
@@ -174,8 +203,12 @@ const Nav = ({ location, history }) => {
           </div>
         </div>
         <div className="nav-auth-xl">
-          <button className="login">Log in</button>
-          <button className="signup">Sign up</button>
+          <button className="login">
+            <Link to="/login">Log in</Link>
+          </button>
+          <button className="signup">
+            <Link to="/register">Sign up</Link>
+          </button>
         </div>
       </nav>
       <div

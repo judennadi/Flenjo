@@ -1,20 +1,26 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
 import { locations } from "../../locations";
 
 const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) => {
   const { dispatch } = useContext(RestaurantContext);
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
   const [searchTerms, setSearchTerms] = useState([]);
 
   const handleClick = (e) => {
     console.log("auto");
-    dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[0].textContent });
+    if (location.pathname === "/") {
+      dispatch({ type: "SET_RES_TERM", payload: e.currentTarget.childNodes[0].textContent });
+    } else if (location.pathname === "/bars") {
+      dispatch({ type: "SET_BAR_TERM", payload: e.currentTarget.childNodes[0].textContent });
+    } else if (location.pathname === "/hotels") {
+      dispatch({ type: "SET_HOT_TERM", payload: e.currentTarget.childNodes[0].textContent });
+    }
     setSearchTerms([]);
-    if (location.pathname !== "/") history.push("/");
+    // if (location.pathname !== "/") history.push("/");
   };
 
   useEffect(() => {

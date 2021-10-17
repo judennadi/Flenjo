@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 import { CircularProgress } from "@material-ui/core";
 
 const Bars = ({ history }) => {
-  const { rating } = useContext(RestaurantContext);
+  const { rating, term, isBarSearch } = useContext(RestaurantContext);
   const [bars, setBars] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
@@ -23,7 +23,7 @@ const Bars = ({ history }) => {
 
       try {
         const { data } = await axios.get(
-          `/api/restaurants/bars?page=${page - 1}&rating=${rating ? rating : ""}`,
+          `/api/restaurants/bars?term=${term}&page=${page - 1}&rating=${rating ? rating : ""}`,
           {
             cancelToken: source.token,
           }
@@ -53,37 +53,66 @@ const Bars = ({ history }) => {
       mounted = false;
       source.cancel();
     };
-  }, [page, rating]);
+  }, [page, term, rating]);
 
   return (
     <div className="container">
       <section className="dine-out container">
-        <section className="best-food-list container">
-          {isLoading ? (
-            <div
-              className="cen-grid"
-              style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
-            >
-              <CircularProgress size="30px" thickness={4} />
-            </div>
-          ) : isError ? (
-            <div style={{ width: "100%", textAlign: "center" }}>
-              <h4>Oops! something went wrong</h4>
-            </div>
-          ) : (
-            <>
-              <h4>Bars</h4>
-              <div className="best-food-con">
-                {bars.map((bar) => (
-                  <RestaurantCard key={bar.id} restaurant={bar} meals={meals} />
-                ))}
+        {!isBarSearch ? (
+          <section className="best-food-list container">
+            {isLoading ? (
+              <div
+                className="cen-grid"
+                style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
+              >
+                <CircularProgress size="30px" thickness={4} />
               </div>
-              <div>
-                <Pagination page={page} total={total} dispatch={setPage} is={true} />
+            ) : isError ? (
+              <div style={{ width: "100%", textAlign: "center" }}>
+                <h4>Oops! something went wrong</h4>
               </div>
-            </>
-          )}
-        </section>
+            ) : (
+              <>
+                <h4>Bars</h4>
+                <div className="best-food-con">
+                  {bars.map((bar) => (
+                    <RestaurantCard key={bar.id} restaurant={bar} meals={meals} />
+                  ))}
+                </div>
+                <div>
+                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                </div>
+              </>
+            )}
+          </section>
+        ) : (
+          <section className="best-food-list container">
+            {isLoading ? (
+              <div
+                className="cen-grid"
+                style={mqXl.matches ? { gridColumn: "2/3", height: "100px" } : { height: "100px" }}
+              >
+                <CircularProgress size="30px" thickness={4} />
+              </div>
+            ) : isError ? (
+              <div style={{ width: "100%", textAlign: "center" }}>
+                <h4>Oops! something went wrong</h4>
+              </div>
+            ) : (
+              <>
+                <h4>{term ? `result: ${term[0].toUpperCase() + term.slice(1)}` : ""}</h4>
+                <div className="best-food-con">
+                  {bars.map((bar) => (
+                    <RestaurantCard key={bar.id} restaurant={bar} meals={meals} />
+                  ))}
+                </div>
+                <div>
+                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                </div>
+              </>
+            )}
+          </section>
+        )}
       </section>
     </div>
   );

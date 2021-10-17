@@ -3,7 +3,7 @@ const router = require("express").Router();
 const {
   getAllRestaurants,
   getBars,
-  getNightlife,
+  getHotels,
   searchAutocomplete,
   getRestaurant,
   addRestaurant,
@@ -14,7 +14,7 @@ const {
 
 router.get("/", getAllRestaurants);
 router.get("/bars", getBars);
-router.get("/nightlife", getNightlife);
+router.get("/hotels", getHotels);
 router.get("/search/autocomplete", searchAutocomplete);
 router.get("/eg", getEg);
 router.get("/:id", getRestaurant);

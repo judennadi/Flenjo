@@ -7,7 +7,9 @@ export const RestaurantContext = createContext();
 const initialState = {
   isLoading: true,
   isSubLoading: false,
-  isSearch: false,
+  isResSearch: false,
+  isBarSearch: false,
+  isHotSearch: false,
   isError: false,
   restaurants: [],
   page: 1,
