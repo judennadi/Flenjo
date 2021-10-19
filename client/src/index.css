@@ -124,11 +124,11 @@ body {
   margin: 10px 10px 30px;
 }
 .auth-modal p {
-  margin: auto 10px 0;
+  margin: 10px;
   text-align: center;
 }
 .auth-form {
-  margin: 10px;
+  margin: 15px;
 }
 .auth-form .input-con {
   margin: 10px 0 20px;
@@ -206,9 +206,9 @@ header nav {
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 .nav-auth-sm {
-  height: 40px;
-  width: 40px;
-  margin-left: auto;
+  height: 35px;
+  width: 35px;
+  margin: 2px 0 2px auto;
   display: grid;
   place-items: center;
   border-radius: 50%;

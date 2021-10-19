@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
+import { AuthContext } from "../../context/AuthContextProvider";
 import axios from "axios";
 
-const Register = () => {
+const Register = ({ history }) => {
+  const { dispatch } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -30,13 +32,17 @@ const Register = () => {
     };
 
     try {
-      const { data } = await axios.post("/auth/login", { name, email, username, password }, config);
-      console.log(data);
-      if (data.error) {
-        setError(data.error);
+      const { data } = await axios.post("/auth/register", { name, username, email, password }, config);
+      if (data.data) {
+        dispatch({ type: "SET_USER", user: data.data, isAuth: true });
+        history.push("/");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 4000);
     }
   };
 
@@ -65,6 +71,7 @@ const Register = () => {
               size="small"
               name="email"
               label="Email"
+              type="email"
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -89,6 +96,7 @@ const Register = () => {
               size="small"
               name="password"
               label="Password"
+              type="password"
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -101,6 +109,7 @@ const Register = () => {
               size="small"
               name="confirm_Password"
               label="Confirm Password"
+              type="password"
               fullWidth
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

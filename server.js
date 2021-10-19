@@ -2,8 +2,8 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
-// const db = require('./db');
 const restaurantRoutes = require("./routes/restaurants");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -15,6 +15,7 @@ app.listen(process.env.PORT || 5000, () => {
 });
 
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/auth", authRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

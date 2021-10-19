@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContextProvider";
 import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({ history }) => {
+  const { dispatch } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,12 +20,16 @@ const Login = () => {
 
     try {
       const { data } = await axios.post("/auth/login", { email, password }, config);
-      console.log(data);
-      if (data.error) {
-        setError(data.error);
+      if (data.data) {
+        dispatch({ type: "SET_USER", user: data.data, isAuth: true });
+        history.push("/");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 4000);
     }
   };
 
@@ -33,7 +39,7 @@ const Login = () => {
         <div className="title">
           <h1>Login</h1>
         </div>
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" autoComplete="off" onSubmit={handleSubmit}>
           <div className="input-con">
             <TextField
               variant="outlined"
@@ -52,6 +58,7 @@ const Login = () => {
               size="small"
               name="password"
               label="Password"
+              type="password"
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}

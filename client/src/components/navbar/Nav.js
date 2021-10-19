@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { Search, LocationOn, Person } from "@material-ui/icons";
 import { RestaurantContext } from "../../context/RestaurantContextProvider";
+import { AuthContext } from "../../context/AuthContextProvider";
 import AutoComplete from "./AutoComplete";
 import { Link } from "react-router-dom";
 
 const Nav = ({ location, history }) => {
   const { dispatch } = useContext(RestaurantContext);
+  const { user, isAuth } = useContext(AuthContext);
   const [userLoc, setUserLoc] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState("");
@@ -156,10 +158,14 @@ const Nav = ({ location, history }) => {
             FLENJO
           </h1>
         </div>
-        <div className="nav-auth-sm">
-          <Link to="/login">
-            <Person color="primary" />
-          </Link>
+        <div className="nav-auth-sm" style={isAuth ? { background: "purple" } : null}>
+          {!isAuth ? (
+            <Link to="/login">
+              <Person color="primary" />
+            </Link>
+          ) : (
+            <p style={{ color: "#fff", fontWeight: "500" }}>{user.email.substring(0, 1).toUpperCase()}</p>
+          )}
         </div>
         <div className="search-xl">
           <div className="input">
