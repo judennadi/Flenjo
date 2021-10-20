@@ -306,7 +306,7 @@ function SearchSm({
             <div className="input-icon">
               <LocationOn color="primary" />
             </div>
-            <p>{userLoc && `${userLoc.regionName}, ${userLoc.country}`}</p>
+            <p>{userLoc && `${userLoc.region}, ${userLoc.country_name}`}</p>
           </div>
           <div className="search-icon input-icon" onClick={handleClick}>
             <Search />

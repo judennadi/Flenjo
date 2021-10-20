@@ -1,10 +1,9 @@
 const { Pool } = require("pg");
 
-const dbString = process.env.DATABASE_URL;
 let pool;
 if (process.env.NODE_ENV === "production") {
-  pool = new Pool({ connectionString: dbString });
-} else {
+  pool = new Pool({ connectionString: process.env.DATABASE_URL });
+} else if (process.env.NODE_ENV === "development") {
   pool = new Pool();
 }
 
