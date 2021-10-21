@@ -19,10 +19,8 @@ const Nav = ({ location, history }) => {
   const myScroll = () => {
     let currentScrollPos = window.pageYOffset;
     let sticky;
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || location.pathname === "/bars" || location.pathname === "/hotels") {
       sticky = document.querySelector(".sticky");
-    } else {
-      sticky = document.querySelector(".sticky2");
     }
 
     if (mql.matches) {
@@ -219,13 +217,7 @@ const Nav = ({ location, history }) => {
       </nav>
       <div
         className="search-sm"
-        style={
-          location.pathname !== "/" || scroll
-            ? { borderBottom: "none", height: "45px", transition: "0.5s" }
-            : location.pathname === "/" && searchBar
-            ? { borderBottom: "none", height: "45px", transition: "0.5s" }
-            : null
-        }
+        style={scroll || searchBar ? { borderBottom: "none", height: "45px", transition: "0.5s" } : null}
       >
         {!scroll ? (
           <SearchSm

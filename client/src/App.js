@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import RestaurantDetails from "./components/RestaurantDetails";
 import FoodDetails from "./components/FoodDetails";
 import RestaurantSearch from "./components/RestaurantSearch";
+import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
 
 const theme = createMuiTheme({
@@ -49,6 +50,7 @@ function App() {
             <Route path="/resetpassword/:id" component={ResetPassword} />
             <Route path="/restaurant/:id" component={RestaurantDetails} />
             <Route path="/food/:id" component={FoodDetails} />
+            <Route path="/food" component={Profile} />
             <Route path="*" component={NotFound} />
           </Switch>
           <Footer />
