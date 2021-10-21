@@ -32,7 +32,7 @@ const register = async (req, res) => {
 
     const token = jwt.sign({ id: rows[0].id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
     res.cookie("token", token, { httpOnly: true, maxAge: process.env.MAX_AGE * 1000 });
-    res.status(201).json({ data: rows });
+    res.status(201).json({ data: rows[0] });
   } catch (error) {
     console.log(error);
   }
