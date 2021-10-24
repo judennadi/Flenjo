@@ -191,7 +191,7 @@ const Nav = ({ location, history }) => {
               <input
                 type="text"
                 value={restaurantSearch}
-                placeholder="Search for restaurants, cuisine or a dish"
+                placeholder="Search for restaurants, bars or hotels"
                 onKeyUp={handleKeyUp}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
@@ -207,12 +207,28 @@ const Nav = ({ location, history }) => {
           </div>
         </div>
         <div className="nav-auth-xl">
-          <button className="login">
-            <Link to="/login">Log in</Link>
-          </button>
-          <button className="signup">
-            <Link to="/register">Sign up</Link>
-          </button>
+          {!isAuth ? (
+            <>
+              <button className="login">
+                <Link to="/login">Log in</Link>
+              </button>
+              <button className="signup">
+                <Link to="/register">Sign up</Link>
+              </button>
+            </>
+          ) : (
+            <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <div
+                className="cen-grid"
+                style={{ width: "40px", height: "40px", borderRadius: "50%", background: "purple" }}
+              >
+                <p style={{ color: "#fff", fontWeight: "500", fontSize: "22px" }}>
+                  {user.email.substring(0, 1).toUpperCase()}
+                </p>
+              </div>
+              <p style={{ marginLeft: "6px" }}>{user.name}</p>
+            </div>
+          )}
         </div>
       </nav>
       <div
@@ -237,7 +253,7 @@ const Nav = ({ location, history }) => {
             <input
               type="text"
               value={restaurantSearch}
-              placeholder="Search for restaurants, cuisine or a dish"
+              placeholder="Search for restaurants, bars or hotels"
               onKeyUp={handleKeyUp}
               onFocus={handleFocus}
               onBlur={handleBlur}
@@ -279,7 +295,7 @@ function SearchSm({
           <input
             type="text"
             value={restaurantSearch}
-            placeholder="Search for restaurants, cuisine or a dish"
+            placeholder="Search for restaurants, bars or hotels"
             onKeyUp={(e) => handleKeyUp(e)}
             onFocus={(e) => handleFocus(e)}
             onBlur={(e) => handleBlur(e)}

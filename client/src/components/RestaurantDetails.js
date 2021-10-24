@@ -3,9 +3,12 @@ import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import axios from "axios";
 import { StarRating, AddStarRating } from "./accessories/StarRating";
+import { useHistory, useParams } from "react-router";
 const Map = React.lazy(() => import("./accessories/Map"));
 
-const RestaurantDetails = ({ match, history }) => {
+const RestaurantDetails = () => {
+  const params = useParams();
+  const history = useHistory();
   const [restaurant, setRestaurant] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +19,7 @@ const RestaurantDetails = ({ match, history }) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(`/api/restaurants/${match.params.id}`, {
+        const { data } = await axios.get(`/api/restaurants/${params.id}`, {
           cancelToken: source.token,
         });
         if (mounted) {
@@ -41,7 +44,7 @@ const RestaurantDetails = ({ match, history }) => {
       mounted = false;
       source.cancel();
     };
-  }, [match.params.id]);
+  }, [params.id]);
 
   return (
     <div className="container" style={{ minHeight: "100vh" }}>
