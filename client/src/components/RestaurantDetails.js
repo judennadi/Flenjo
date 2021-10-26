@@ -3,12 +3,12 @@ import { CircularProgress } from "@material-ui/core";
 import { AddAPhotoOutlined, Person } from "@material-ui/icons";
 import axios from "axios";
 import { StarRating, AddStarRating } from "./accessories/StarRating";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 const Map = React.lazy(() => import("./accessories/Map"));
 
 const RestaurantDetails = () => {
   const params = useParams();
-  const history = useHistory();
+  // const history = useHistory();
   const [restaurant, setRestaurant] = useState({});
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

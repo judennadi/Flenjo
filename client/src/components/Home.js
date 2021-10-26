@@ -106,7 +106,9 @@ const Home = () => {
   };
 
   const selectMenu = (e) => {
-    dispatch({ type: "SET_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
+    console.log(e.currentTarget.childNodes[1].childNodes[0].textContent);
+
+    dispatch({ type: "SET_RES_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
   };
 
   // api key
