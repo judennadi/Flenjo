@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
 import { CircularProgress } from "@material-ui/core";
 import Pagination from "./Pagination";
 import { meals } from "./Home";
 
 const Hotels = ({ history }) => {
-  const { rating, isHotSearch, term } = useContext(RestaurantContext);
-  const [clubs, setClubs] = useState([]);
+  const { term, isHotSearch, rating } = useSelector((state) => state.restaurants);
+  const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,14 +31,14 @@ const Hotels = ({ history }) => {
         );
         if (mounted) {
           console.log(data);
-          setClubs(data.data);
+          setHotels(data.data);
           setTotal(data.total);
           setIsLoading(false);
           setIsError(false);
         }
       } catch (error) {
         if (mounted) {
-          setIsError(false);
+          setIsError(true);
           setIsLoading(false);
           if (axios.isCancel(error)) {
             console.log("axios cancelled");
@@ -76,12 +76,12 @@ const Hotels = ({ history }) => {
               <>
                 <h4>Hotels</h4>
                 <div className="best-food-con">
-                  {clubs.map((club) => (
+                  {hotels.map((club) => (
                     <RestaurantCard key={club.id} restaurant={club} meals={meals} />
                   ))}
                 </div>
                 <div>
-                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                  <Pagination page={page} total={total} setPage={setPage} />
                 </div>
               </>
             )}
@@ -103,12 +103,12 @@ const Hotels = ({ history }) => {
               <>
                 <h4>{term ? `result: ${term[0].toUpperCase() + term.slice(1)}` : ""}</h4>
                 <div className="best-food-con">
-                  {clubs.map((club) => (
+                  {hotels.map((club) => (
                     <RestaurantCard key={club.id} restaurant={club} meals={meals} />
                   ))}
                 </div>
                 <div>
-                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                  <Pagination page={page} total={total} setPage={setPage} />
                 </div>
               </>
             )}

@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
 import { meals } from "./Home";
 import Pagination from "./Pagination";
 import { CircularProgress } from "@material-ui/core";
 
 const Bars = ({ history }) => {
-  const { rating, term, isBarSearch } = useContext(RestaurantContext);
+  const { term, isBarSearch, rating } = useSelector((state) => state.restaurants);
   const [bars, setBars] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
@@ -80,7 +80,7 @@ const Bars = ({ history }) => {
                   ))}
                 </div>
                 <div>
-                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                  <Pagination page={page} total={total} setPage={setPage} />
                 </div>
               </>
             )}
@@ -107,7 +107,7 @@ const Bars = ({ history }) => {
                   ))}
                 </div>
                 <div>
-                  <Pagination page={page} total={total} dispatch={setPage} is={true} />
+                  <Pagination page={page} total={total} setPage={setPage} />
                 </div>
               </>
             )}

@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Search, LocationOn, Person } from "@material-ui/icons";
-import { RestaurantContext } from "../../context/RestaurantContextProvider";
-import { AuthContext } from "../../context/AuthContextProvider";
 import AutoComplete from "./AutoComplete";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../redux/restaurants";
 
 const Nav = ({ location, history }) => {
-  const { dispatch } = useContext(RestaurantContext);
-  const { user, isAuth } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const { user, isAuth } = useSelector((state) => state.auth);
   const [userLoc, setUserLoc] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [restaurantSearch, setRestaurantSearch] = useState("");
@@ -65,11 +65,11 @@ const Nav = ({ location, history }) => {
           if (currentFocus > -1) {
             /* and simulate a click on the "active" item:*/
             list[currentFocus].click();
-            dispatch({ type: "SET_RES_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            dispatch(SET_RES_TERM(list[currentFocus].childNodes[0].textContent));
             setIsST(false);
             e.currentTarget.blur();
           } else {
-            dispatch({ type: "SET_RES_TERM", payload: e.target.value });
+            dispatch(SET_RES_TERM(e.target.value));
             setIsST(false);
             e.currentTarget.blur();
           }
@@ -77,11 +77,11 @@ const Nav = ({ location, history }) => {
           if (currentFocus > -1) {
             /* and simulate a click on the "active" item:*/
             list[currentFocus].click();
-            dispatch({ type: "SET_BAR_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            dispatch(SET_BAR_TERM(list[currentFocus].childNodes[0].textContent));
             setIsST(false);
             e.currentTarget.blur();
           } else {
-            dispatch({ type: "SET_BAR_TERM", payload: e.target.value });
+            dispatch(SET_BAR_TERM(e.target.value));
             setIsST(false);
             e.currentTarget.blur();
           }
@@ -89,11 +89,11 @@ const Nav = ({ location, history }) => {
           if (currentFocus > -1) {
             /* and simulate a click on the "active" item:*/
             list[currentFocus].click();
-            dispatch({ type: "SET_HOT_TERM", payload: list[currentFocus].childNodes[0].textContent });
+            dispatch(SET_HOT_TERM(list[currentFocus].childNodes[0].textContent));
             setIsST(false);
             e.currentTarget.blur();
           } else {
-            dispatch({ type: "SET_HOT_TERM", payload: e.target.value });
+            dispatch(SET_HOT_TERM(e.target.value));
             setIsST(false);
             e.currentTarget.blur();
           }

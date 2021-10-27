@@ -1,6 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { RestaurantContext } from "../../context/RestaurantContextProvider";
+import { SET_RATING, CLEAR_RATING, CLEAR_TERM } from "../../redux/restaurants";
 import Nav from "./Nav";
 import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
 import barPri from "../../img/nav/whiskey (1).png";
@@ -124,11 +125,12 @@ const Navbar = () => {
 
 // ================ Filter Component ================
 function Filters({ history, location }) {
-  const { term, isResSearch, isBarSearch, isHotSearch, dispatch } = useContext(RestaurantContext);
+  const dispatch = useDispatch();
+  const { term, isResSearch, isBarSearch, isHotSearch } = useSelector((state) => state.restaurants);
   const [filtNo, setFiltNo] = useState(0);
 
   const clearTerm = (e) => {
-    dispatch({ type: "CLEAR_TERM", payload: "" });
+    dispatch(CLEAR_TERM());
     if (filtNo >= 1) {
       setFiltNo(filtNo - 1);
     } else {
@@ -140,10 +142,10 @@ function Filters({ history, location }) {
   const handleRating = (e) => {
     e.currentTarget.classList.toggle("add-pri");
     if (e.currentTarget.classList.contains("add-pri")) {
-      dispatch({ type: "SET_RATING", payload: 4 });
+      dispatch(SET_RATING(4));
       setFiltNo(filtNo + 1);
     } else {
-      dispatch({ type: "CLEAR_RATING" });
+      dispatch(CLEAR_RATING());
       if (filtNo >= 1) {
         setFiltNo(filtNo - 1);
       } else {

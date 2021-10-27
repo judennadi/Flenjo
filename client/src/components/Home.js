@@ -1,6 +1,7 @@
-import { useRef, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
+// import { RestaurantContext } from "../context/RestaurantContextProvider";
 import beef from "../img/foods/beef.jpg";
 import fish from "../img/foods/fish.jpg";
 import chicken from "../img/foods/chicken.jpg";
@@ -21,6 +22,8 @@ import mcdelivery from "../img/brands/mcdelivery.webp";
 import RestaurantCard from "./RestaurantCard";
 import { CircularProgress } from "@material-ui/core";
 import Pagination from "./Pagination";
+import axios from "axios";
+import { SET_RES_TERM } from "../redux/restaurants";
 
 export const meals = [
   { name: "Chicken", img: chicken },
@@ -40,16 +43,18 @@ export const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  const { restaurants, term, page, total, isResSearch, isLoading, isSubLoading, isError, dispatch } =
-    useContext(RestaurantContext);
-  // const [restaurants, setRestaurants] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isSubLoading, setIsSubLoading] = useState(false);
-  // const [isError, setIsError] = useState(true);
-  // const [page, setPage] = useState(1);
-  // const [total, setTotal] = useState(null);
+  // const { term, isResSearch, rating } = useContext(RestaurantContext);
+  const dispatch = useDispatch();
+  const { term, isResSearch, rating } = useSelector((state) => state.restaurants);
+  const [restaurants, setRestaurants] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubLoading, setIsSubLoading] = useState(false);
+  const [isError, setIsError] = useState(true);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(null);
   const mealRef = useRef([]);
   const promoRef = useRef([]);
+  let mql = window.matchMedia("(max-width: 600px)");
   const mqXl = window.matchMedia("(min-width: 601px)");
 
   const isInViewport = (el) => {
@@ -108,8 +113,71 @@ const Home = () => {
   const selectMenu = (e) => {
     console.log(e.currentTarget.childNodes[1].childNodes[0].textContent);
 
-    dispatch({ type: "SET_RES_TERM", payload: e.currentTarget.childNodes[1].childNodes[0].textContent });
+    dispatch(SET_RES_TERM(e.currentTarget.childNodes[1].childNodes[0].textContent));
+    setPage(1);
   };
+
+  useEffect(() => {
+    let mounted = true;
+    const source = axios.CancelToken.source();
+    const fetchData = async () => {
+      if (page <= 1 && !term) {
+        setIsLoading(true);
+        setIsSubLoading(false);
+        setIsError(false);
+      } else if (rating) {
+        setIsSubLoading(true);
+        setIsLoading(false);
+        setIsError(false);
+      } else {
+        setIsSubLoading(true);
+        setIsLoading(false);
+        setIsError(false);
+      }
+
+      try {
+        const { data } = await axios.get(
+          `/api/restaurants?term=${term}&page=${page - 1}&rating=${rating ? rating : ""}`,
+          {
+            cancelToken: source.token,
+          }
+        );
+        if (mounted) {
+          setRestaurants(data.data);
+          setTotal(data.total);
+          setIsLoading(false);
+          setIsSubLoading(false);
+          setIsError(false);
+          if (!term && page > 1) {
+            if (mql.matches) {
+              window.scrollTo(0, 620);
+            } else {
+              window.scrollTo(0, 775);
+            }
+          } else if (term) {
+            window.scrollTo(0, 0);
+          }
+        }
+      } catch (error) {
+        if (mounted) {
+          setIsError(true);
+          setIsLoading(false);
+          setIsSubLoading(false);
+          if (axios.isCancel(error)) {
+            console.log("axios cancelled");
+          } else {
+            console.error(error);
+          }
+        }
+      }
+    };
+    fetchData();
+
+    return () => {
+      mounted = false;
+      source.cancel();
+    };
+  }, [page, term, mql.matches, rating]);
 
   // api key
   // AIzaSyBpOkv8EmT8DTL1wnu7PAa7Xt-mRPe1gwQ
@@ -223,7 +291,7 @@ const Home = () => {
                   )}
                 </div>
                 <div>
-                  <Pagination page={page} total={total} dispatch={dispatch} is={false} />
+                  <Pagination page={page} total={total} setPage={setPage} />
                 </div>
               </section>
             </>
@@ -245,7 +313,7 @@ const Home = () => {
                 )}
               </div>
               <div>
-                <Pagination page={page} total={total} dispatch={dispatch} is={false} />
+                <Pagination page={page} total={total} setPage={setPage} />
               </div>
             </section>
           )}

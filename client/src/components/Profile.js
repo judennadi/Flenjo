@@ -1,7 +1,9 @@
 const Profile = () => {
   return (
     <div className="container">
-      <h1>Profile</h1>
+      <section className="profile">
+        <h1>Profile</h1>
+      </section>
     </div>
   );
 };

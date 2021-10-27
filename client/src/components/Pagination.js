@@ -2,16 +2,11 @@
 import Pagination from "@material-ui/lab/Pagination";
 // import { RestaurantContext } from "../context/RestaurantContextProvider";
 
-const PaginationControlled = ({ page, total, dispatch, is }) => {
-  // const  = useContext(RestaurantContext);
+const PaginationControlled = ({ page, total, setPage }) => {
   let mqSm = window.matchMedia("(max-width: 600px)");
 
   const handleChange = (event, value) => {
-    if (is) {
-      dispatch(value);
-    } else {
-      dispatch({ type: "SET_PAGE", payload: value });
-    }
+    setPage(value);
   };
 
   return (

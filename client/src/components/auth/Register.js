@@ -1,11 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
-import { AuthContext } from "../../context/AuthContextProvider";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SET_USER } from "../../redux/auth";
 
 const Register = ({ history }) => {
-  const { dispatch } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // const { dispatch } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -34,7 +36,7 @@ const Register = ({ history }) => {
     try {
       const { data } = await axios.post("/auth/register", { name, username, email, password }, config);
       if (data.data) {
-        dispatch({ type: "SET_USER", user: data.data, isAuth: true });
+        dispatch(SET_USER(data.data));
         history.push("/");
       }
     } catch (error) {

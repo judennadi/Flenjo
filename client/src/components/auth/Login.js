@@ -1,11 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContextProvider";
 import { Button, TextField } from "@material-ui/core";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SET_USER } from "../../redux/auth";
 
 const Login = ({ history }) => {
-  const { dispatch } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // const { dispatch } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +23,7 @@ const Login = ({ history }) => {
     try {
       const { data } = await axios.post("/auth/login", { email, password }, config);
       if (data.data) {
-        dispatch({ type: "SET_USER", user: data.data, isAuth: true });
+        dispatch(SET_USER(data.data));
         history.push("/");
       }
     } catch (error) {

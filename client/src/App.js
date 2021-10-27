@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Navbar from "./components/navbar/Navbar";
@@ -15,7 +14,7 @@ import FoodDetails from "./components/FoodDetails";
 import RestaurantSearch from "./components/RestaurantSearch";
 import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
-import { AuthContext } from "./context/AuthContextProvider";
+import { useSelector } from "react-redux";
 
 const theme = createMuiTheme({
   palette: {
@@ -36,7 +35,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth } = useSelector((state) => state.auth);
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -56,7 +55,7 @@ function App() {
               render={() => (!isAuth ? <Redirect to="/login" /> : <RestaurantDetails />)}
             />
             <Route path="/food/:id" component={FoodDetails} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/user/profile" component={Profile} />
             <Route path="*" component={NotFound} />
           </Switch>
           <Footer />
