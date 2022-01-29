@@ -1,5 +1,5 @@
 // import { useContext } from "react";
-import Pagination from "@material-ui/lab/Pagination";
+import { Pagination } from "@mui/material";
 // import { RestaurantContext } from "../context/RestaurantContextProvider";
 
 const PaginationControlled = ({ page, total, setPage }) => {

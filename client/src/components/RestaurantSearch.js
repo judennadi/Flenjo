@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { StarRating } from "./accessories/StarRating";
-import { RestaurantContext } from "../context/RestaurantContextProvider";
 
 const RestaurantSearch = () => {
-  const { restaurants, term } = useContext(RestaurantContext);
+  const { restaurants, term } = useSelector((state) => state.restaurants);
   const history = useHistory();
   const handleClick = (id) => {
     history.push(`/restaurant/${id}`);

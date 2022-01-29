@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createTheme, ThemeProvider } from "@mui/material";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/Home";
 import Bars from "./components/Bars";
@@ -16,7 +16,7 @@ import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
 import { useSelector } from "react-redux";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#ed5a6b",

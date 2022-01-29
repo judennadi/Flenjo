@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { CircularProgress } from "@material-ui/core";
-import { AddAPhotoOutlined, Person } from "@material-ui/icons";
+import { CircularProgress } from "@mui/material";
+import { AddAPhotoOutlined, Person } from "@mui/icons-material";
 import axios from "axios";
 import { StarRating, AddStarRating } from "./accessories/StarRating";
 import { useParams } from "react-router";

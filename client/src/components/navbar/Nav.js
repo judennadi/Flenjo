@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Search, LocationOn, Person } from "@material-ui/icons";
+import { Search, LocationOn, Person, ExpandMore, Cancel, Logout } from "@mui/icons-material";
 import AutoComplete from "./AutoComplete";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../redux/restaurants";
+import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../reducers/restaurants";
 
 const Nav = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -37,6 +37,10 @@ const Nav = ({ location, history }) => {
       }
     }
     prevScrollPos = currentScrollPos;
+  };
+
+  const handleModal = () => {
+    document.querySelector(".user-menu").classList.toggle("dep");
   };
 
   let currentFocus = -1;
@@ -162,7 +166,7 @@ const Nav = ({ location, history }) => {
               <Person color="primary" />
             </Link>
           ) : (
-            <p style={{ color: "#fff", fontWeight: "500" }}>{user.email.substring(0, 1).toUpperCase()}</p>
+            <p style={{ color: "#fff", fontWeight: "500" }}>{user?.email?.substring(0, 1).toUpperCase()}</p>
           )}
         </div>
         <div className="search-xl">
@@ -217,16 +221,44 @@ const Nav = ({ location, history }) => {
               </button>
             </>
           ) : (
-            <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div
+              style={{
+                position: "relative",
+                width: "auto",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={handleModal}
+            >
               <div
                 className="cen-grid"
-                style={{ width: "40px", height: "40px", borderRadius: "50%", background: "purple" }}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  background: "purple",
+                }}
               >
                 <p style={{ color: "#fff", fontWeight: "500", fontSize: "22px" }}>
-                  {user.email.substring(0, 1).toUpperCase()}
+                  {user?.email?.substring(0, 1).toUpperCase()}
                 </p>
               </div>
-              <p style={{ marginLeft: "6px" }}>{user.name}</p>
+              <p style={{ marginLeft: "6px" }}>
+                <b>{user.name}</b>
+              </p>
+              <div className="input-icon">
+                <ExpandMore />
+              </div>
+              <div className="user-menu dep">
+                <ul>
+                  <li>
+                    <Logout />
+                    Logout
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
@@ -273,34 +305,44 @@ const Nav = ({ location, history }) => {
 };
 
 // =============== SearchSm Component ===============
-function SearchSm({
-  restaurantSearch,
-  setRestaurantSearch,
-  searchBar,
-  setSearchBar,
-  handleKeyUp,
-  handleFocus,
-  handleBlur,
-  setIsST,
-  isST,
-  userLoc,
-}) {
-  const handleClick = (e) => {
-    setSearchBar(true);
-  };
+function SearchSm(props) {
+  const {
+    restaurantSearch,
+    setRestaurantSearch,
+    searchBar,
+    setSearchBar,
+    handleKeyUp,
+    handleFocus,
+    handleBlur,
+    setIsST,
+    isST,
+    userLoc,
+  } = props;
   return (
     <>
       {searchBar ? (
         <div className="search-bar">
-          <input
-            type="text"
-            value={restaurantSearch}
-            placeholder="Search for restaurants, bars or hotels"
-            onKeyUp={(e) => handleKeyUp(e)}
-            onFocus={(e) => handleFocus(e)}
-            onBlur={(e) => handleBlur(e)}
-            onChange={(e) => setRestaurantSearch(e.target.value)}
-          />
+          <div style={{ width: "100%", height: "100%", display: "relative" }}>
+            <input
+              type="text"
+              value={restaurantSearch}
+              placeholder="Search for restaurants, bars or hotels"
+              onKeyUp={(e) => handleKeyUp(e)}
+              onFocus={(e) => handleFocus(e)}
+              onBlur={(e) => handleBlur(e)}
+              onChange={(e) => setRestaurantSearch(e.target.value)}
+            />
+            <div
+              style={{
+                display: "inline-block",
+                position: "absolute",
+                top: "calc(50% - 8px)",
+                right: "10px",
+              }}
+            >
+              <Cancel size="small" style={{ color: "rgba(0,0,0,0.6)" }} onClick={() => setSearchBar(false)} />
+            </div>
+          </div>
           <AutoComplete
             restaurantSearch={restaurantSearch}
             setRestaurantSearch={setRestaurantSearch}
@@ -316,7 +358,7 @@ function SearchSm({
             </div>
             <p>{userLoc && `${userLoc.region}, ${userLoc.country_name}`}</p>
           </div>
-          <div className="search-icon input-icon" onClick={handleClick}>
+          <div className="search-icon input-icon" onClick={() => setSearchBar(true)}>
             <Search />
           </div>
         </>

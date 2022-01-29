@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@material-ui/icons";
-// import { RestaurantContext } from "../context/RestaurantContextProvider";
+import { ArrowBackIos, ArrowForwardIos, ExpandMore } from "@mui/icons-material";
 import beef from "../img/foods/beef.jpg";
 import fish from "../img/foods/fish.jpg";
 import chicken from "../img/foods/chicken.jpg";
@@ -20,10 +19,10 @@ import dominos from "../img/brands/dominos.webp";
 import kfc from "../img/brands/kfc.webp";
 import mcdelivery from "../img/brands/mcdelivery.webp";
 import RestaurantCard from "./RestaurantCard";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Button } from "@mui/material";
 import Pagination from "./Pagination";
 import axios from "axios";
-import { SET_RES_TERM } from "../redux/restaurants";
+import { SET_RES_TERM } from "../reducers/restaurants";
 
 export const meals = [
   { name: "Chicken", img: chicken },
@@ -43,7 +42,6 @@ export const meals = [
 const brands = [{ img: burgerking }, { img: dominos }, { img: kfc }, { img: mcdelivery }];
 
 const Home = () => {
-  // const { term, isResSearch, rating } = useContext(RestaurantContext);
   const dispatch = useDispatch();
   const { term, isResSearch, rating } = useSelector((state) => state.restaurants);
   const [restaurants, setRestaurants] = useState([]);
@@ -79,13 +77,21 @@ const Home = () => {
   // });
 
   const handleClick = (e) => {
+    const con = document.querySelector(".food-grid-con .grid-con");
     const btnIcon = e.currentTarget.childNodes[1];
     btnIcon.classList.toggle("rot");
     mealRef.current.forEach((meal, index) => {
       if (index > 5) {
+        con.style.marginBottom = "0px";
         meal.classList.toggle("dep");
       }
     });
+
+    if (mealRef.current[6].classList.contains("dep")) {
+      con.style.marginBottom = "0px";
+    } else {
+      con.style.marginBottom = "20px";
+    }
   };
 
   const handleSlide = (e) => {
@@ -191,6 +197,10 @@ const Home = () => {
       ) : isError ? (
         <div style={{ width: "100%", textAlign: "center" }}>
           <h4>Oops! something went wrong</h4>
+          <br />
+          <Button variant="contained" size="small" onClick={() => window.location.reload()}>
+            Refresh Page
+          </Button>
         </div>
       ) : (
         <>

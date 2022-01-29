@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { locations } from "../../locations";
 import { useDispatch } from "react-redux";
-import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../redux/restaurants";
+import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../reducers/restaurants";
 
 const AutoComplete = ({ restaurantSearch, setRestaurantSearch, isST, setIsST }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [searchTerms, setSearchTerms] = useState([]);
+  // fuck
 
   const handleClick = (e) => {
     if (location.pathname === "/") {

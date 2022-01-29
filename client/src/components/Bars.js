@@ -4,7 +4,7 @@ import axios from "axios";
 import RestaurantCard from "./RestaurantCard";
 import { meals } from "./Home";
 import Pagination from "./Pagination";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Button } from "@mui/material";
 
 const Bars = ({ history }) => {
   const { term, isBarSearch, rating } = useSelector((state) => state.restaurants);
@@ -29,7 +29,6 @@ const Bars = ({ history }) => {
           }
         );
         if (mounted) {
-          console.log(data);
           setBars(data.data);
           setTotal(data.total);
           setIsLoading(false);
@@ -70,6 +69,10 @@ const Bars = ({ history }) => {
             ) : isError ? (
               <div style={{ width: "100%", textAlign: "center" }}>
                 <h4>Oops! something went wrong</h4>
+                <br />
+                <Button variant="contained" size="small" onClick={() => window.location.reload()}>
+                  Refresh Page
+                </Button>
               </div>
             ) : (
               <>

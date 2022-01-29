@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { SET_USER } from "../../redux/auth";
+import { SET_USER } from "../../reducers/auth";
 
 const Register = ({ history }) => {
   const dispatch = useDispatch();
@@ -51,6 +51,11 @@ const Register = ({ history }) => {
   return (
     <div className="auth-con cen-grid">
       <div className="auth-modal">
+        <div className="logo">
+          <h1 style={{ letterSpacing: "-1px" }} onClick={() => history.push("/")}>
+            FLENJO
+          </h1>
+        </div>
         <div className="title">
           <h1>Register</h1>
         </div>

@@ -12,12 +12,15 @@
   --text2: #9c9c9c;
   --bold2: #696969;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .pri {
   color: var(--pri);
 }
+
 *,
 :after,
 :before {
@@ -25,18 +28,22 @@ html {
   box-sizing: inherit;
   font-family: "Quicksand";
 }
+
 a {
   text-decoration: none;
   color: inherit;
 }
+
 ul,
 ::before ul,
 ::after ul {
   list-style: none;
 }
+
 h4 {
   font-weight: 600;
 }
+
 body {
   min-height: 100vh;
   box-sizing: border-box;
@@ -87,9 +94,6 @@ body {
   margin-top: 10px;
 }
 
-.dep {
-  display: none;
-}
 .add-pri {
   background: #ed5a6b;
   color: #fff !important;
@@ -535,6 +539,25 @@ header nav {
     margin-left: 20px;
   }
 
+  .user-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 150px;
+    height: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 2px 12px var(--shadowC2);
+    transition: 0.3s;
+  }
+
+  .user-menu.dep {
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
   .nav-menu {
     height: 89px;
     max-width: var(--max);
@@ -652,7 +675,6 @@ header nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
 }
 
 .food-grid-con .grid-con .grid-item {
@@ -662,6 +684,7 @@ header nav {
   height: 110px;
   box-shadow: var(--shadow);
   cursor: pointer;
+  transition: 0.3s;
 }
 .food-grid-con .grid-item div:nth-child(1) {
   width: 100%;
@@ -680,6 +703,20 @@ header nav {
   display: grid;
   place-items: center;
   font-weight: 500;
+}
+
+.food-grid-con .grid-item.dep {
+  opacity: 0;
+  height: 0px;
+  width: 0%;
+}
+.food-grid-con .grid-item.dep div:nth-child(1) {
+  width: 0;
+  height: 0;
+}
+.food-grid-con .grid-item.dep div:nth-child(2) {
+  width: 0;
+  height: 0;
 }
 
 .coll-btn {

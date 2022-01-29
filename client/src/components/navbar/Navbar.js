@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { SET_RATING, CLEAR_RATING, CLEAR_TERM } from "../../redux/restaurants";
+import { SET_RATING, CLEAR_RATING, CLEAR_TERM } from "../../reducers/restaurants";
 import Nav from "./Nav";
-import { SwapVert, FilterList, Cancel } from "@material-ui/icons";
+import { SwapVert, FilterList, Cancel } from "@mui/icons-material";
 import barPri from "../../img/nav/whiskey (1).png";
 import barSec from "../../img/nav/whiskey.png";
 import deliveryPri from "../../img/nav/delivery-man.png";
