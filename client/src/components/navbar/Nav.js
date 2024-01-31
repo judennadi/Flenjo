@@ -4,6 +4,8 @@ import AutoComplete from "./AutoComplete";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SET_RES_TERM, SET_BAR_TERM, SET_HOT_TERM } from "../../reducers/restaurants";
+import { REMOVE_USER } from "../../reducers/auth";
+import axios from "axios";
 
 const Nav = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -122,6 +124,14 @@ const Nav = ({ location, history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleLogout = async (e) => {
+    console.log("here1");
+    const { data } = await axios.post("/auth/logout").catch((err) => console.log(err));
+    if (data.data) {
+      dispatch(REMOVE_USER({}));
+    }
   };
 
   useEffect(() => {
@@ -253,7 +263,7 @@ const Nav = ({ location, history }) => {
               </div>
               <div className="user-menu dep">
                 <ul>
-                  <li>
+                  <li onClick={handleLogout}>
                     <Logout />
                     Logout
                   </li>

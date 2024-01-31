@@ -40,20 +40,20 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  checkUser = "SELECT * FROM users WHERE email = $1";
+  checkUser = "SELECT * FROM users WHERE username = $1";
 
   try {
-    const { rows } = await db.query(checkUser, [email]);
+    const { rows } = await db.query(checkUser, [username]);
     if (!rows.length) {
-      res.status(400).json({ error: "incorrect email or password" });
+      res.status(400).json({ error: "incorrect username or password" });
       return;
     }
 
     const isMatch = await bcrypt.compare(password, rows[0].password);
     if (!isMatch) {
-      res.status(400).json({ error: "incorrect email or password" });
+      res.status(400).json({ error: "incorrect username or password" });
       return;
     }
 
@@ -66,4 +66,10 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const logout = async (req, res) => {
+  res.cookie("token", "", { httpOnly: true, maxAge: 1 });
+  res.cookie("check", "", { maxAge: 1 });
+  res.status(201).json({ data: "success" });
+};
+
+module.exports = { login, register, logout };

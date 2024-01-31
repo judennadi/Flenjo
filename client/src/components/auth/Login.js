@@ -8,7 +8,7 @@ import { SET_USER } from "../../reducers/auth";
 const Login = ({ history }) => {
   const dispatch = useDispatch();
   // const { dispatch } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -21,7 +21,7 @@ const Login = ({ history }) => {
     };
 
     try {
-      const { data } = await axios.post("/auth/login", { email, password }, config);
+      const { data } = await axios.post("/auth/login", { username, password }, config);
       if (data.data) {
         dispatch(SET_USER(data.data));
         history.push("/");
@@ -51,11 +51,11 @@ const Login = ({ history }) => {
             <TextField
               variant="outlined"
               size="small"
-              name="email"
-              label="Email"
+              name="username"
+              label="Username"
               fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
